@@ -4,29 +4,19 @@ import { connect } from 'react-redux';
 import { getPostInfos } from '../actions/postActions';
 
 function Excerpt(props) {
-	useEffect(() => {
-		props.getImgAndAuthor(props.post)
-	}, [])
 
-	console.log("post complet", props.fullPost)
+	const {title, img, excerpt} = props.post;
+	console.log("post complet", props.post)
+	console.log("img", props.post.img)
 
 	return (
-		<div>Excerpt</div>
+		<div>
+			{img && <img src={img.medium} alt={img.alt_text} />}
+			<h2>{title.rendered}</h2>
+			<div dangerouslySetInnerHTML={{__html: excerpt.rendered}} /> 
+		</div>
 	);
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		getImgAndAuthor: post => dispatch(getPostInfos(post))
-	}
-}
+export default Excerpt
 
-const mapStateToProps = state => {
-	return {
-		fullPost: state.posts.post
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Excerpt)
-
-//dangerouslySetInnerHTML={{__html: post.content.rendered}}

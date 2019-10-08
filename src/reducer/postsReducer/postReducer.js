@@ -1,8 +1,7 @@
-import { GET_POSTS, GET_POST_INFOS } from '../../actions/types.js';
+import { GET_POSTS } from '../../actions/types.js';
 
 const initialState = {
-	posts: [],
-	post: {}
+	posts: []
 }
 
 export default (state = initialState, action) => {
@@ -13,15 +12,6 @@ export default (state = initialState, action) => {
 				posts: action.payload
 			}
 			break;
-		case GET_POST_INFOS:
-			return {
-				...state,
-				post: {
-					...action.payload.post,
-					img: action.payload.img,
-					author_name: action.payload.author
-				}
-			}
 		default:
 			return state;
 			break;

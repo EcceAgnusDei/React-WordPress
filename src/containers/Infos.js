@@ -11,11 +11,12 @@ function Infos(props) {
 
 	console.log(props.posts);
 
+	const excerptsJSX = props.posts.map(post =>
+		<Excerpt key={post.id} post={post} />
+	)
 	return (
 		<div>
-		{props.posts.map(post =>
-			<Excerpt key={post.id} post={post} />
-		)}
+			{excerptsJSX}
 		</div>
 	);
 }
@@ -33,3 +34,5 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Infos);
+
+//dangerouslySetInnerHTML={{__html: post.content.rendered}}
