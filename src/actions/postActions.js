@@ -1,6 +1,9 @@
-import { GET_POSTS } from './types.js';
+import { GET_POSTS, GET_BY_SLUG } from './types.js';
+
+import { postsLoading } from './statusAction.js';
 
 export const getPosts = () => dispatch => {
+	dispatch(postsLoading(true));
 	const posts = [];
 	fetch('wp-json/wp/v2/posts')
 	.then(resp => resp.json())
@@ -27,7 +30,8 @@ export const getPosts = () => dispatch => {
 					} : null
 				})
 				if(posts.length === json.length) {
-					dispatch({type: GET_POSTS, payload: posts})
+					dispatch({type: GET_POSTS, payload: posts});
+					dispatch(postsLoading(false));
 				}
 			})
 		})
@@ -35,24 +39,8 @@ export const getPosts = () => dispatch => {
 	.catch(err => console.log(err));
 }
 
-// export const getPostInfos = (post) => dispatch => {
-// 	const getImageUrl = fetch(`wp-json/wp/v2/media/${post.featured_media}`).then(res => res.json());
-// 	const getAuthor = fetch(`wp-json/wp/v2/users/${post.author}`).then(res => res.json());
+export const getBySlug = (slug) => {
+	console.log(slug)
+	return {type: GET_BY_SLUG, payload: slug}
+}
 
-// 	Promise.all([getImageUrl, getAuthor])
-// 	.then(res => {
-// 		console.log(res);
-// 		dispatch({
-// 			type: GET_POST_INFOS, 
-// 			payload: {
-// 				post,
-// 				img: {
-// 					large: res[0].media_details.sizes.large.source_url,
-// 					medium_large: res[0].media_details.sizes.medium_large.source_url,
-// 					medium: res[0].media_details.sizes.medium.source_url,
-// 				},
-// 				author: res[1].name
-// 			}
-// 		})
-// 	})
-// } 

@@ -1,31 +1,41 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { getBySlug } from '../actions/postActions.js';
+
 function Post(props) {
 
-	let post = null;
-	console.log(props.posts)
-
 	useEffect(() => {
-		if (props.posts.length > 0) {
-			post = props.posts.filter(post => post.slug === props.match.params.slug)
-			console.log("*****Le post*****", post);
+		if (!props.loading) {
+			props.getPost(props.match.params.slug);
 		}
-	}, [props.posts])
+	},[props.loading])
 
 	return (
-		<div>
-			{post != null ?
-			<h1>{post.title.rendered}</h1> :
-			<h2>Loading...</h2>}
-		</div>
+		<React.Fragment>
+			{!props.post.id ?
+			<h2>Loading...</h2> :
+			<React.Fragment>
+				<h1>{props.post.title.rendered}</h1>
+				<p>{props.post.author_name}</p>
+				<div dangerouslySetInnerHTML={{__html: props.post.content.rendered}}></div>
+			</React.Fragment>}
+		</React.Fragment>
 	);
 }
 
 const mapStateToProps = state => {
 	return {
-		posts: state.posts.posts
+		post: state.posts.post,
+		posts: state.posts.posts,
+		loading: state.status.postsLoading
 	}
 }
 
-export default connect(mapStateToProps)(Post)
+const mapDispacthToProps = dispatch => {
+	return {
+		getPost: (slug) => dispatch(getBySlug(slug))
+	}
+}
+
+export default connect(mapStateToProps, mapDispacthToProps)(Post)

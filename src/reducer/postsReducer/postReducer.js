@@ -1,7 +1,8 @@
-import { GET_POSTS } from '../../actions/types.js';
+import { GET_POSTS, GET_BY_SLUG } from '../../actions/types.js';
 
 const initialState = {
-	posts: []
+	posts: [],
+	post: {}
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +13,11 @@ export default (state = initialState, action) => {
 				posts: action.payload
 			}
 			break;
+		case GET_BY_SLUG:
+			return {
+				...state,
+				post: state.posts.find(post => post.slug === action.payload)
+			}
 		default:
 			return state;
 			break;
