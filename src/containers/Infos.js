@@ -5,11 +5,6 @@ import { getPosts } from '../actions/postActions.js';
 import Excerpt from './Excerpt.js';
 
 function Infos(props) {
-	useEffect(() => {
-		props.getAllPosts();
-	}, [])
-
-	console.log(props.posts);
 
 	const excerptsJSX = props.posts.map(post =>
 		<Excerpt key={post.id} post={post} />
@@ -27,12 +22,6 @@ const mapStateToProps = state => {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		getAllPosts: () => dispatch(getPosts())
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Infos);
+export default connect(mapStateToProps, null)(Infos);
 
 //dangerouslySetInnerHTML={{__html: post.content.rendered}}
