@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 
 import { getPosts } from './actions/postActions.js';
 import Infos from './containers/Infos';
-import Post from './containers/Post';
+import Post from './containers/Post'
+import Header from './components/Header';
 
 function App(props) {
 
@@ -15,7 +16,7 @@ function App(props) {
 
   return (
     <React.Fragment>
-      <h1>Hello World!</h1>
+      <Header />
       <main>
         <Route exact path="/" component={Infos} />
         <Route path="/:slug" component={Post} />
