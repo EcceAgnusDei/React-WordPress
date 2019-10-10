@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from "react-helmet";
 
 import { getBySlug } from '../actions/postActions.js';
 import NotFound from '../components/NotFound.js';
@@ -18,6 +19,11 @@ function Post(props) {
 			<h2>Loading...</h2> :
 			props.post.id ?
 			<React.Fragment>
+				<Helmet>
+					<title>{props.post.title.rendered}</title>
+					{props.post.acf.meta_description &&
+					<meta name="description" content={props.post.acf.meta_description} />}
+				</Helmet>
 				<h1>{props.post.title.rendered}</h1>
 				<p>{props.post.author_name}</p>
 				<div dangerouslySetInnerHTML={{__html: props.post.content.rendered}}></div>

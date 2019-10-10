@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import { getPosts } from '../actions/postActions.js';
 import Excerpt from './Excerpt.js';
@@ -10,9 +11,13 @@ function Infos(props) {
 		<Excerpt key={post.id} post={post} rootLink="/posts"/>
 	)
 	return (
-		<div>
+		<React.Fragment>
+			<Helmet>
+				<title>Last Posts</title>
+				<meta name="description" content="See the last posts" />
+			</Helmet>
 			{excerptsJSX}
-		</div>
+		</React.Fragment>
 	);
 }
 
