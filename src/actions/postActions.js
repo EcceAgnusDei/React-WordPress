@@ -5,15 +5,18 @@ import { postsLoading } from './statusAction.js';
 export const getPosts = () => dispatch => {
 	dispatch(postsLoading(true));
 	const posts = [];
-	fetch('wp-json/wp/v2/posts')
-	.then(resp => resp.json())
+	fetch('/wp-json/wp/v2/posts')
+	.then(resp => {
+		console.log(resp)
+		return resp.json()
+	})
 	.then(json => {
 		json.forEach(post => {
 			let getImageUrl = null;
 			if (post.featured_media != 0) {
-				getImageUrl = fetch(`wp-json/wp/v2/media/${post.featured_media}`).then(res => res.json());
+				getImageUrl = fetch(`/wp-json/wp/v2/media/${post.featured_media}`).then(res => res.json());
 			} 
-			const getAuthor = fetch(`wp-json/wp/v2/users/${post.author}`).then(res => res.json());
+			const getAuthor = fetch(`/wp-json/wp/v2/users/${post.author}`).then(res => res.json());
 			Promise.all([getImageUrl, getAuthor])
 			.then(res => {
 				posts.push({

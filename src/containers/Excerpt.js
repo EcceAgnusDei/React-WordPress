@@ -13,7 +13,7 @@ function Excerpt(props) {
 	return (
 		<div>
 			{img && <img src={img.medium} alt={img.alt_text} />}
-			<NavLink to={`/${slug}`}><h2>{title.rendered}</h2></NavLink>
+			<NavLink to={`${props.rootLink}/${slug}`}><h2>{title.rendered}</h2></NavLink>
 			<div dangerouslySetInnerHTML={{__html: excerpt.rendered}} /> 
 		</div>
 	);

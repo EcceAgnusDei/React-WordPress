@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
 		case GET_BY_SLUG:
 			return {
 				...state,
-				post: state.posts.find(post => post.slug === action.payload)
+				post: state.posts.find(post => post.slug === action.payload) ||
+				initialState.post
 			}
 		default:
 			return state;

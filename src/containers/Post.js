@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getBySlug } from '../actions/postActions.js';
+import NotFound from '../components/NotFound.js';
 
 function Post(props) {
 
@@ -13,13 +14,15 @@ function Post(props) {
 
 	return (
 		<React.Fragment>
-			{!props.post.id ?
+			{props.loading ?
 			<h2>Loading...</h2> :
+			props.post.id ?
 			<React.Fragment>
 				<h1>{props.post.title.rendered}</h1>
 				<p>{props.post.author_name}</p>
 				<div dangerouslySetInnerHTML={{__html: props.post.content.rendered}}></div>
-			</React.Fragment>}
+			</React.Fragment> :
+			<NotFound/>}
 		</React.Fragment>
 	);
 }

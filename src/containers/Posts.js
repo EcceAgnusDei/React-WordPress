@@ -7,7 +7,7 @@ import Excerpt from './Excerpt.js';
 function Infos(props) {
 
 	const excerptsJSX = props.posts.map(post =>
-		<Excerpt key={post.id} post={post} />
+		<Excerpt key={post.id} post={post} rootLink="/posts"/>
 	)
 	return (
 		<div>
