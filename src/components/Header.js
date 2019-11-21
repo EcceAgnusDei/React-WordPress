@@ -1,41 +1,47 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { addClassToElement } from '../util.js';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
-function Header(props) {
-	let menuJSX;
+import FlexContainer from 'elements/FlexContainer';
+import Container from '@material-ui/core/Container';
 
-	if (Array.isArray(props.children)) {
-		menuJSX = props.children.map(item => 
-			<li className="nav-item" key={item.props.children}>
-				{addClassToElement(item, 'nav-link')}
-			</li>)
-	} else {
-		menuJSX = 
-			<li className="nav-item" key={props.children.props.children}>
-				{addClassToElement(props.children, 'nav-link')}
-			</li>
-	}
+import Menu from './Menu';
+
+const StyledHeader = styled.header`
+	min-height: 70px;
+	width: 100%;
+	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	position: fixed; 
+	z-index: 500;
+	background-color: ${props => props.theme.light};
+`;
+
+function Header({brand, children}) {
+	let menuJSX = children.map((item, index) => 
+		<div key={index}>
+			{item}
+		</div>)
+
 	return (
-		<header>
-			<Navbar bg="light" expand="lg">
-			{props.brand &&
-				<NavLink
-					to="/"
-					className="navbar-brand"
-				>{props.brand}
-				</NavLink>}
-				<Navbar.Toggle arai-controls="header-nav" />
-				<Navbar.Collapse id="header-nav">
-					<ul className="ml-auto navbar-nav">
-						{menuJSX}
-					</ul>
-				</Navbar.Collapse>
-			</Navbar> 
-		</header>
+		<StyledHeader>
+			<Container>
+				<FlexContainer>
+				{brand &&
+					<NavLink to="/">
+						{brand}
+					</NavLink>}
+					<Menu>
+						{children}
+					</Menu>
+				</FlexContainer>
+			</Container>
+      	</StyledHeader>
 	);
 }
 
-export default Header
+export default Header;

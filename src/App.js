@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from '@material-ui/core/Button';
 import { Route, NavLink, Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 
 import { getPosts } from './actions/postActions.js';
 import Posts from './containers/Posts';
@@ -9,6 +10,7 @@ import Post from './containers/Post'
 import Header from './components/Header';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import theme from './theme';
 
 function App(props) {
 
@@ -17,7 +19,7 @@ function App(props) {
   }, [])
 
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Header brand="ReactWP">
         <NavLink
           exact 
@@ -38,7 +40,7 @@ function App(props) {
           <Route component={NotFound} />
         </Switch>
       </main>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 
