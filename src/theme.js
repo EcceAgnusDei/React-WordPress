@@ -8,5 +8,6 @@ export default {
 	sm: '520px',
 	md: '820px',
 	lg: '1220px',
-	xl: '1920px'
+	xl: '1920px',
+	headerHeight: 70
 }

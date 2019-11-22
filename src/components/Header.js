@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import Hidden from '@material-ui/core/Hidden';
 import FlexContainer from 'elements/FlexContainer';
 import Container from '@material-ui/core/Container';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MuiMenu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
 
 import Menu from './Menu';
+import Logo from './Logo';
 
 const StyledHeader = styled.header`
-	min-height: 70px;
+	min-height: ${props => props.theme.headerHeight + 'px'};
 	width: 100%;
 	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.5);
 	display: flex;
@@ -22,22 +27,47 @@ const StyledHeader = styled.header`
 `;
 
 function Header({brand, children}) {
-	let menuJSX = children.map((item, index) => 
-		<div key={index}>
-			{item}
-		</div>)
+	const [anchorEl, setAnchorEl] = React.useState(null);
+
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const menuJSX = children.map((item, index) => (
+		<MenuItem key={index} onClick={handleClose}>{item}</MenuItem>
+	))
 
 	return (
 		<StyledHeader>
 			<Container>
 				<FlexContainer>
 				{brand &&
-					<NavLink to="/">
+					<Logo>
 						{brand}
-					</NavLink>}
-					<Menu>
-						{children}
-					</Menu>
+					</Logo>}
+					<Hidden smDown>
+						<Menu>
+							{children}
+						</Menu>
+					</Hidden>
+					<Hidden mdUp>
+						<IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+							<MenuIcon fontSize="large" color='primary'/>
+						</IconButton>
+						<MuiMenu 
+							id="simple-menu"
+					        anchorEl={anchorEl}
+					        keepMounted
+					        open={Boolean(anchorEl)}
+					        onClose={handleClose}
+					    >
+							{menuJSX}
+						</MuiMenu>
+					</Hidden>
 				</FlexContainer>
 			</Container>
       	</StyledHeader>
