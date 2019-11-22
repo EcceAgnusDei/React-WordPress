@@ -1,0 +1,75 @@
+html
+{
+  scroll-behavior: smooth;
+}
+
+body 
+{
+  margin: 0;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 1.2rem;
+}
+
+p 
+{
+  text-align: justify
+}
+
+li 
+{
+  list-style-type: none; 
+  list-style-position: inside;
+}
+
+ul 
+{
+  padding: 0; 
+}
+
+h2
+{
+  font-size: 2.2rem;
+}
+
+h1, h2, h3, h4, .title
+{
+	font-family: 'Cormorant Garamond', serif;
+	text-transform: uppercase;
+  margin-top: 0;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:hover
+{
+  text-decoration: none;
+}
+
+section
+{
+  margin-bottom: 70px;
+  padding-top: 70px;
+}
+
+section:first-child
+{
+  margin: 0;
+}
+
+textarea
+{
+  resize: none;
+}
+
+input, textarea
+{
+  box-shadow: none;
+}
+
+svg 
+{
+  vertical-align: middle;
+}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
@@ -58,12 +59,14 @@ function App(props) {
           </NavLink>
         </Header>
         <StyledMain>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/posts" component={Posts} />
-            <Route path="/posts/:slug" component={Post} />
-            <Route component={NotFound} />
-          </Switch>
+          <Container>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/posts" component={Posts} />
+              <Route path="/posts/:slug" component={Post} />
+              <Route component={NotFound} />
+            </Switch>
+          </Container>
         </StyledMain>
       </ThemeProvider>
     </MuiThemeProvider>
