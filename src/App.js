@@ -10,11 +10,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
 import { getPosts } from './actions/postActions.js';
-import Posts from './containers/Posts';
-import Post from './containers/Post'
-import Header from './components/Header';
-import Home from './components/Home';
-import NotFound from './components/NotFound';
+import Posts from './pages/posts/PostsPage';
+import Post from './pages/posts/OnePostPage'
+import Header from './layout/Header';
+import Home from './pages/home/HomePage';
+import NotFound from './pages/NotFound';
 import theme from './theme';
 import 'assets/css/style.css';
 
@@ -24,7 +24,10 @@ const StyledMain = styled.main`
 
 const muiTheme = createMuiTheme({
   palette: {
-    primary: { main: theme.primary }
+    primary: { main: theme.primary },
+    common: {
+      black: theme.black
+    }
   },
   breakpoints: {
     values: {
@@ -63,6 +66,7 @@ function App(props) {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/posts" component={Posts} />
+              <Route exact path="/posts:index" component={Posts} />
               <Route path="/posts/:slug" component={Post} />
               <Route component={NotFound} />
             </Switch>

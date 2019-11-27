@@ -33,6 +33,7 @@ export const getPosts = () => dispatch => {
 					} : null
 				})
 				if(posts.length === json.length) {
+					posts.sort((a,b) => b.id - a.id);
 					dispatch({type: GET_POSTS, payload: posts});
 					dispatch(postsLoading(false));
 				}

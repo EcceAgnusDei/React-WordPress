@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 
-import { getBySlug } from '../actions/postActions.js';
-import NotFound from '../components/NotFound.js';
+import { getBySlug } from 'actions/postActions.js';
+import NotFound from 'pages/NotFound.js';
 
 function Post(props) {
 

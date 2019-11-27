@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 
-import { getPostInfos } from '../actions/postActions';
+import { getPostInfos } from 'actions/postActions';
 
 function Excerpt(props) {
 
 	const {title, img, excerpt, slug} = props.post;
-	console.log("post complet", props.post)
-	console.log("img", props.post.img)
 
 	return (
 		<div>
