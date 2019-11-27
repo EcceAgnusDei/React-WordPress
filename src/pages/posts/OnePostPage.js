@@ -1,32 +1,41 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 import { getBySlug } from 'actions/postActions.js';
 import NotFound from 'pages/NotFound.js';
+import H1 from 'elements/H1';
+import P from 'elements/P';
+import Separator from 'elements/Separator';
+import Space from 'elements/Space';
+import WPContentContainer from 'elements/WPContentContainer';
 
-function Post(props) {
+import PostHeader from './PostHeader';
+
+function Post({ post, loading, match, getPost }) {
 
 	useEffect(() => {
-		if (!props.loading) {
-			props.getPost(props.match.params.slug);
+		if (!loading) {
+			getPost(match.params.slug);
 		}
-	},[props.loading])
+	},[loading])
 
 	return (
 		<React.Fragment>
-			{props.loading ?
+			{loading ?
 			<h2>Loading...</h2> :
-			props.post.id ?
+			post.id ?
 			<React.Fragment>
 				<Helmet>
-					<title>{props.post.title.rendered}</title>
-					{props.post.acf.meta_description &&
-					<meta name="description" content={props.post.acf.meta_description} />}
+					<title>{post.title.rendered}</title>
+					{post.acf && post.acf.meta_description &&
+					<meta name="description" content={post.acf.meta_description} />}
 				</Helmet>
-				<h1>{props.post.title.rendered}</h1>
-				<p>{props.post.author_name}</p>
-				<div dangerouslySetInnerHTML={{__html: props.post.content.rendered}}></div>
+				<PostHeader title={post.title.rendered} author={post.author_name} date={post.date}/>
+				<Separator />
+				<Space />
+				<WPContentContainer dangerouslySetInnerHTML={{__html: post.content.rendered}}></WPContentContainer>
 			</React.Fragment> :
 			<NotFound/>}
 		</React.Fragment>

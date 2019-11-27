@@ -18,7 +18,7 @@ import Logo from './Logo';
 const StyledHeader = styled.header`
 	min-height: ${props => props.theme.headerHeight + 'px'};
 	width: 100%;
-	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 	display: flex;
 	align-items: center;
 	position: fixed; 

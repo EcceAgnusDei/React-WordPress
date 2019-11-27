@@ -5,12 +5,13 @@ import Hidden from '@material-ui/core/Hidden';
 
 const MenuItem = styled.li`
 	list-style-type: none;
+	font-family: ${props => props.theme.font.sans}, sans-serif;
 	& a {
 		text-decoration: none;
 		text-transform: uppercase;
 		color: ${props => props.current ? props.theme.primary : props.theme.black};
 		font-size: 0.9em;
-	  	transition: all 100ms linear;
+	  	transition: all 200ms linear;
 	  	margin-left: 12px;
 	  	&:hover {
 	  		color: ${props => props.theme.primary}

@@ -59,8 +59,6 @@ function Pagination({ perPage, total, current, limit }) {
 			</NavLink>
 		));
 
-	console.log(firstDigitsJSX, currentDigitsJSX, lastDigitsJSX);
-
 	const digitsJSX = [...firstDigitsJSX, ...currentDigitsJSX, ...lastDigitsJSX];
 
 	let incr = 0;

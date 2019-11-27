@@ -19,12 +19,12 @@ import theme from './theme';
 import 'assets/css/style.css';
 
 const StyledMain = styled.main`
-  padding-top: ${props => 2 * props.theme.headerHeight + 'px'};
+  padding-top: ${props => 1.5 * props.theme.headerHeight + 'px'};
 `;
 
 const muiTheme = createMuiTheme({
   palette: {
-    primary: { main: theme.primary },
+    primary: { main: theme.primary, dark: theme.primaryHover },
     common: {
       black: theme.black
     }

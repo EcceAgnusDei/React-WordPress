@@ -11,7 +11,7 @@ import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';
 
 function PostsPage({posts, match}) {
-	const PER_PAGE = 1;
+	const PER_PAGE = 2;
 
 	const toShow = [];
 	const currIndex = match.params.index ? parseInt(match.params.index - 1) * PER_PAGE : 0;
