@@ -1,22 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import Link from 'elements/Link'
+import Link from 'elements/Link';
+import { H2 } from 'elements/H';
+import P from 'elements/P';
+import WPContentContainer from 'elements/WPContentContainer';
+import PostInfos from 'elements/PostInfos';
 
-function Excerpt(props) {
+import PostHeader from './PostHeader';
 
-	const {title, img, excerpt, slug} = props.post;
+function Excerpt({ allCategories, post, rootLink }) {
+	const { title, img, excerpt, slug, categories, author_name, date } = post;
+	const postCategories = allCategories.filter(item => categories.indexOf(item.id) != -1);
 
 	return (
 		<div>
 			{img && <img src={img.medium} alt={img.alt_text} />}
 			<Link>
-				<NavLink to={`${props.rootLink}/${slug}`}><h2>{title.rendered}</h2></NavLink>
+				<NavLink to={`${rootLink}/${slug}`}>
+					<H2 m={0}>{title.rendered}</H2>
+				</NavLink>
 			</Link>
-			<div dangerouslySetInnerHTML={{__html: excerpt.rendered}} /> 
+			<PostInfos author={author_name} date={date} categories={postCategories} />
+			<P dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
 		</div>
 	);
 }
 
-export default Excerpt
+const mapStateToProps = state => {
+	return {
+		allCategories: state.categories.categories
+	};
+};
 
+export default connect(mapStateToProps, null)(Excerpt);

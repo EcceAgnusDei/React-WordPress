@@ -10,7 +10,9 @@ import WPContentContainer from 'elements/WPContentContainer';
 
 import PostHeader from './PostHeader';
 
-function Post({ post, loading, match, getPost }) {
+function Post({ post, loading, match, getPost, allCategories }) {
+
+	let postCategories = post.id ? allCategories.filter(item => post.categories.indexOf(item.id) != -1) : [];
 
 	useEffect(() => {
 		if (!loading) {
@@ -29,7 +31,7 @@ function Post({ post, loading, match, getPost }) {
 					{post.acf && post.acf.meta_description &&
 					<meta name="description" content={post.acf.meta_description} />}
 				</Helmet>
-				<PostHeader title={post.title.rendered} author={post.author_name} date={post.date}/>
+				<PostHeader title={post.title.rendered} author={post.author_name} date={post.date} categories={postCategories}/>
 				<Separator />
 				<Space />
 				<WPContentContainer dangerouslySetInnerHTML={{__html: post.content.rendered}}></WPContentContainer>
@@ -43,7 +45,8 @@ const mapStateToProps = state => {
 	return {
 		post: state.posts.post,
 		posts: state.posts.posts,
-		loading: state.status.postsLoading
+		loading: state.status.postsLoading,
+		allCategories: state.categories.categories
 	}
 }
 

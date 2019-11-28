@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const WPContentContainer = styled.div`
-	width: 825px;
 	color: ${props => props.theme.black}
 
 	a {
@@ -19,7 +18,7 @@ const WPContentContainer = styled.div`
 
 	figure {
 		display: block;
-		margin: ${props => props.theme.marginScale * 2 + "px"} 0;
+		margin: ${props => props.theme.marginScale * 2 + 'px'} 0;
 	}
 
 	h1, h2, h3, h4, h5, h6, h7 {
@@ -318,6 +317,6 @@ const WPContentContainer = styled.div`
 
 	/* File */
 
-`; 
+`;
 
 export default WPContentContainer;
