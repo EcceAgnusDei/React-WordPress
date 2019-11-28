@@ -12,7 +12,6 @@ export default (state = initialState, action) => {
 				...state,
 				posts: action.payload
 			}
-			break;
 		case GET_BY_SLUG:
 			return {
 				...state,
@@ -21,6 +20,5 @@ export default (state = initialState, action) => {
 			}
 		default:
 			return state;
-			break;
 	}
 }

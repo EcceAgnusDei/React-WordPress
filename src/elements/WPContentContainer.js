@@ -1,8 +1,17 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const WPContentContainer = styled.div`
 	width: 825px;
+	color: ${props => props.theme.black}
+
+	a {
+		color: ${props => props.theme.primary}
+	}
+
+	a:hover {
+		color: ${props => props.theme.primaryHover}
+	}
+
 	p {
 		font-family: ${props => props.theme.font.sans}, sans-serif;
 		text-align: justify;
@@ -100,15 +109,18 @@ const WPContentContainer = styled.div`
 	.wp-block-quote::before {
 		content: "“";
 		font-size: 2rem;
+		align-self: flex-start;
+    	line-height: 1;
 	}
 
 	.wp-block-quote::after {
 		content: "”";
 		font-size: 2rem;
+		align-self: flex-end;
+    	line-height: 0.3;
 	}
 
 	/* Video et audio*/
-
 	.fluid-width-video-wrapper {
 		width: 100%;
 	}
@@ -123,6 +135,18 @@ const WPContentContainer = styled.div`
 
 	.wp-block-audio audio {
     	width: 100%;
+	}
+
+	.wp-block-video {
+		max-width: 100%;
+		min-width: 300px;
+		display: table;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.wp-block-video video {
+		max-width: 100%;
 	}
 
 	/* Cover */
@@ -291,6 +315,9 @@ const WPContentContainer = styled.div`
 	.has-background-dim-90::before {
     	opacity: .9;
 	}
+
+	/* File */
+
 `; 
 
 export default WPContentContainer;

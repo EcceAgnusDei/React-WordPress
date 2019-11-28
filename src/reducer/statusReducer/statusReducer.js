@@ -11,8 +11,6 @@ export default (state = initialState, action) => {
 				...state,
 				postsLoading: action.payload
 			}
-		break;
-		
 		default:
 			return state;
 	}

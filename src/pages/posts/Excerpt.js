@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { getPostInfos } from 'actions/postActions';
 import Link from 'elements/Link'
 
 function Excerpt(props) {

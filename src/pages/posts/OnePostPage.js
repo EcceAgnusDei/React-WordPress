@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import { getBySlug } from 'actions/postActions.js';
 import NotFound from 'pages/NotFound.js';
-import H1 from 'elements/H1';
-import P from 'elements/P';
 import Separator from 'elements/Separator';
 import Space from 'elements/Space';
 import WPContentContainer from 'elements/WPContentContainer';

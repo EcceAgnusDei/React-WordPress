@@ -1,11 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-
-
-import { getPosts } from 'actions/postActions.js';
-import { useScrollPosition } from 'utils/useScrollPosition';
-import theme from 'theme';
 
 import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';

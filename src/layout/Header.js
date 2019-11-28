@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
 import FlexContainer from 'elements/FlexContainer';
 import Container from '@material-ui/core/Container';
