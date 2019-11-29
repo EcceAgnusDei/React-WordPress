@@ -22,6 +22,18 @@ const StyledContent = styled.div`
   padding-top: ${props => 1.5 * props.theme.headerHeight + 'px'};
   font-family: ${props => props.theme.font.sans}, sans-serif;
   background-color: ${props => props.theme.light};
+  color: ${props => props.theme.black};
+
+  .primary-link {
+    color: ${props => props.theme.primary};
+  }
+  .primary-link:hover {
+    color: ${props => props.theme.primaryHover};
+  }
+
+  .black-link {
+    color: ${props => props.theme.black};
+  }
 `;
 
 const muiTheme = createMuiTheme({
@@ -65,7 +77,7 @@ function App(props) {
               <Route exact path="/" component={Home} />
               <Route exact path="/posts" component={Posts} />
               <Route exact path="/posts:index" component={Posts} />
-              <Route path="/posts/:slug" component={Post} />
+              <Route path="/post/:slug" component={Post} />
               <Route component={NotFound} />
             </Switch>
           </Container>

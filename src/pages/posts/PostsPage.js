@@ -24,7 +24,7 @@ function PostsPage({ posts, match }) {
 		toShow.push(posts[i]);
 	}
 
-	const excerptsJSX = toShow.map(post => <Excerpt key={post.id} post={post} rootLink="/posts" />);
+	const excerptsJSX = toShow.map(post => <Excerpt key={post.id} post={post} rootLink="/post" />);
 	return (
 		<Grid container spacing={3}>
 			<Helmet>

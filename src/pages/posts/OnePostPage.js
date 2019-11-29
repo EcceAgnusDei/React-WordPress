@@ -20,7 +20,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 		if (!loading) {
 			getPost(match.params.slug);
 		}
-	}, [loading]);
+	}, [loading, match]);
 
 	return (
 		<>

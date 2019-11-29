@@ -1,21 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import shadow from 'assets/img/shadow_publi.png';
-
 const Mask = styled.div`
 	height: ${props => props.height};
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background-image: url('${shadow}');
-	background-repeat: repeat-x;
-	background-size: 100% 100%;
+	background: linear-gradient(${props => props.theme[props.color] + '0A, ' + props.theme[props.color] + 'FF'});
 `;
 
 Mask.defaultProps = {
-	height: '100px'
+	height: '100px',
+	color: 'light'
 };
 
 export default Mask;

@@ -7,9 +7,11 @@ import Separator from 'elements/Separator';
 import Link from 'elements/Link';
 import { H2 } from 'elements/H';
 import P from 'elements/P';
-import Underliner from 'elements/Underliner';
 import Mask from 'elements/Mask';
 import { CONSTANTS } from 'config';
+
+import WidgetHeader from './WidgetHeader.js';
+import WidgetWrapper from './WidgetWrapper.js';
 
 const StyledImg = styled.img`
 	display: block;
@@ -50,8 +52,9 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 		if (
 			wpParagraphRef.current.children.item(0).getBoundingClientRect().height >
 			CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT
-		)
+		) {
 			setOverflow(true);
+		}
 	}, []);
 
 	return (
@@ -59,7 +62,7 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 			{img && <StyledImg src={img.medium} alt={img.alt_text} />}
 			<StyledH2 mt={1}>
 				<Link>
-					<NavLink to={`/posts/${slug}`}>{title.rendered}</NavLink>
+					<NavLink to={`/post/${slug}`}>{title.rendered}</NavLink>
 				</Link>
 			</StyledH2>
 			<StyledWpP
@@ -77,16 +80,16 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 	const lastPostsJSX = filteredPosts.slice(1, number).map((post, index) => (
 		<React.Fragment key={index}>
 			<Link color="black">
-				<NavLink to={`/posts/${post.slug}`}>{post.title.rendered}</NavLink>
+				<NavLink to={`/post/${post.slug}`}>{post.title.rendered}</NavLink>
 			</Link>
 			<Separator m={1} />
 		</React.Fragment>
 	));
 
 	return (
-		<div>
-			<StyledHeader>les derniers articles</StyledHeader>
-			<Underliner mt={0} mb={2} />
+		<WidgetWrapper>
+			<WidgetHeader>les derniers articles</WidgetHeader>
+
 			{loading ? null : (
 				<>
 					<FirstPost post={filteredPosts[0]} />
@@ -94,9 +97,13 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 					{lastPostsJSX}
 				</>
 			)}
-		</div>
+		</WidgetWrapper>
 	);
 }
+
+LastPostsWidget.defaultProps = {
+	number: CONSTANTS.NB_POSTS_WIDGET
+};
 
 const mapStateToProps = state => {
 	return {
