@@ -1,5 +1,4 @@
-html
-{
+html {
   scroll-behavior: smooth;
 }
 
@@ -7,54 +6,48 @@ html
   box-sizing: border-box;
 }
 
-body 
-{
+body {
   margin: 0;
-  font-size: 1.2rem;
 }
 
-li 
-{
+:root {
+  font-size: 1.2em;
+}
+
+li {
   list-style-position: inside;
 }
 
-ul 
-{
-  padding: 0; 
+ul {
+  padding: 0;
 }
 
-a
-{
-	text-decoration: none;
-}
-
-a:hover
-{
+a {
   text-decoration: none;
 }
 
-section
-{
+a:hover {
+  text-decoration: none;
+}
+
+section {
   margin-bottom: 70px;
   padding-top: 70px;
 }
 
-section:first-child
-{
+section:first-child {
   margin: 0;
 }
 
-textarea
-{
+textarea {
   resize: none;
 }
 
-input, textarea
-{
+input,
+textarea {
   box-shadow: none;
 }
 
-svg 
-{
+svg {
   vertical-align: middle;
 }

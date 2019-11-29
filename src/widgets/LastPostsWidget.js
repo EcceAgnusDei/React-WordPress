@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -7,55 +7,93 @@ import Separator from 'elements/Separator';
 import Link from 'elements/Link';
 import { H2 } from 'elements/H';
 import P from 'elements/P';
-
-const Ellipsis = styled.div`
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	padding: 0 12px;
-
-	a {
-		color: ${props => props.theme.black};
-	}
-
-	a:hover {
-		color: ${props => props.theme.primary};
-	}
-`;
+import Underliner from 'elements/Underliner';
+import Mask from 'elements/Mask';
+import { CONSTANTS } from 'config';
 
 const StyledImg = styled.img`
-	margin: auto;
-	display: table;
+	display: block;
+	width: 100%;
+`;
+
+const StyledHeader = styled.div`
+	text-transform: uppercase;
+	margin-bottom: 0;
+`;
+
+const StyledWpP = styled.div`
+	margin: ${props => props.theme.marginScale}px 0;
+	p {
+		margin: 0;
+		font-size: 0.8rem;
+		text-align: justify;
+	}
+	max-height: ${props => props.mHeight}px;
+	overflow: hidden;
+`;
+
+const StyledH2 = styled(H2)`
+	font-size: 1.1rem;
+`;
+
+const ExcerptContainer = styled.div`
+	position: relative;
 `;
 
 const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
+	const imageUrl = img && img.medium_large ? img.medium_large : img.medium ? img.medium : img.small;
+	const wpParagraphRef = useRef(null);
+
+	const [overflow, setOverflow] = useState(false);
+
+	useEffect(() => {
+		if (
+			wpParagraphRef.current.children.item(0).getBoundingClientRect().height >
+			CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT
+		)
+			setOverflow(true);
+	}, []);
+
 	return (
-		<div>
-			{img && <StyledImg src={img.small} alt={img.alt_text} />}
-			<Link color="primary">
-				<NavLink to={`/posts/${slug}`}>{title.rendered}</NavLink>
-			</Link>
-			<P dangerouslySetInnerHTML={{ __html: excerpt.rendered }} size="0.9" />
-		</div>
+		<ExcerptContainer>
+			{img && <StyledImg src={img.medium} alt={img.alt_text} />}
+			<StyledH2 mt={1}>
+				<Link>
+					<NavLink to={`/posts/${slug}`}>{title.rendered}</NavLink>
+				</Link>
+			</StyledH2>
+			<StyledWpP
+				mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
+				dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
+				ref={wpParagraphRef}
+			/>
+			{overflow && <Mask />}
+		</ExcerptContainer>
 	);
 };
 
-function LastPostsWidget({ number, allPosts, currentPostId, loading }) {
-	console.log(allPosts);
-	const lastPostsJSX = allPosts.slice(1, number).map((post, index) => (
+function LastPostsWidget({ number, allPosts, currentPost, loading }) {
+	const filteredPosts = allPosts.filter(post => post.id !== currentPost.id);
+	const lastPostsJSX = filteredPosts.slice(1, number).map((post, index) => (
 		<React.Fragment key={index}>
-			<Ellipsis>
+			<Link color="black">
 				<NavLink to={`/posts/${post.slug}`}>{post.title.rendered}</NavLink>
-			</Ellipsis>
+			</Link>
 			<Separator m={1} />
 		</React.Fragment>
 	));
 
-	return loading ? null : (
+	return (
 		<div>
-			<FirstPost post={allPosts[0]} />
-			<Separator m={1} />
-			{lastPostsJSX}
+			<StyledHeader>les derniers articles</StyledHeader>
+			<Underliner mt={0} mb={2} />
+			{loading ? null : (
+				<>
+					<FirstPost post={filteredPosts[0]} />
+					<Separator m={1} />
+					{lastPostsJSX}
+				</>
+			)}
 		</div>
 	);
 }
@@ -63,7 +101,8 @@ function LastPostsWidget({ number, allPosts, currentPostId, loading }) {
 const mapStateToProps = state => {
 	return {
 		allPosts: state.posts.posts,
-		loading: state.status.postsLoading
+		loading: state.status.postsLoading,
+		currentPost: state.posts.post
 	};
 };
 

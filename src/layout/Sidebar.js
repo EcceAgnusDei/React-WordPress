@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import LastPosts from '../widgets/LastPostsWidget.js';
 
 const StyledDiv = styled.div`
-	min-width: 400px;
-	border: cyan 1px dashed;
-	padding: 0 12px;
+	//border: cyan 1px dashed;
+	padding: 0;
 `;
 
 function Sidebar() {

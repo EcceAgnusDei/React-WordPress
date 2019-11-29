@@ -12,7 +12,6 @@ const Link = styled.div`
 `;
 
 Link.defaultProps = {
-	d: 'block',
 	color: 'primary',
 	hover: 'primaryHover'
 };

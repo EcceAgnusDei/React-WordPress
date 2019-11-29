@@ -21,6 +21,7 @@ import 'assets/css/style.css';
 const StyledContent = styled.div`
   padding-top: ${props => 1.5 * props.theme.headerHeight + 'px'};
   font-family: ${props => props.theme.font.sans}, sans-serif;
+  background-color: ${props => props.theme.light};
 `;
 
 const muiTheme = createMuiTheme({

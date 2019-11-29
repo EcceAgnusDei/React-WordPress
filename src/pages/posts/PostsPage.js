@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
+import Grid from '@material-ui/core/Grid';
+
 import Sidebar from 'layout/Sidebar';
 
 import Pagination from './Pagination';
@@ -24,22 +26,26 @@ function PostsPage({ posts, match }) {
 
 	const excerptsJSX = toShow.map(post => <Excerpt key={post.id} post={post} rootLink="/posts" />);
 	return (
-		<StyledDiv>
+		<Grid container spacing={3}>
 			<Helmet>
 				<title>Last Posts</title>
 				<meta name="description" content="See the last posts" />
 			</Helmet>
-			<main>
-				{excerptsJSX}
-				<Pagination
-					perPage={PER_PAGE}
-					current={match.params.index ? parseInt(match.params.index) : 1}
-					total={posts.length}
-					limit={3}
-				/>
-			</main>
-			<Sidebar />
-		</StyledDiv>
+			<Grid item xs={12} md={9}>
+				<main>
+					{excerptsJSX}
+					<Pagination
+						perPage={PER_PAGE}
+						current={match.params.index ? parseInt(match.params.index) : 1}
+						total={posts.length}
+						limit={3}
+					/>
+				</main>
+			</Grid>
+			<Grid item xs={12} md={3}>
+				<Sidebar />
+			</Grid>
+		</Grid>
 	);
 }
 

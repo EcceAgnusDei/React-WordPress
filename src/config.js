@@ -1,0 +1,3 @@
+export const CONSTANTS = {
+	LAST_POST_EXCERPT_MAX_HEIGHT: 300
+};
