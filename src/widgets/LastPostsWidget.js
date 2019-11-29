@@ -8,6 +8,7 @@ import Link from 'elements/Link';
 import { H2 } from 'elements/H';
 import P from 'elements/P';
 import Mask from 'elements/Mask';
+import WPParagraphWrapper from 'elements/WPParagraphWrapper';
 import { CONSTANTS } from 'config';
 
 import WidgetHeader from './WidgetHeader.js';
@@ -21,17 +22,6 @@ const StyledImg = styled.img`
 const StyledHeader = styled.div`
 	text-transform: uppercase;
 	margin-bottom: 0;
-`;
-
-const StyledWpP = styled.div`
-	margin: ${props => props.theme.marginScale}px 0;
-	p {
-		margin: 0;
-		font-size: 0.8rem;
-		text-align: justify;
-	}
-	max-height: ${props => props.mHeight}px;
-	overflow: hidden;
 `;
 
 const StyledH2 = styled(H2)`
@@ -65,10 +55,11 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 					<NavLink to={`/post/${slug}`}>{title.rendered}</NavLink>
 				</Link>
 			</StyledH2>
-			<StyledWpP
+			<WPParagraphWrapper
 				mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
 				dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
 				ref={wpParagraphRef}
+				size="0.8"
 			/>
 			{overflow && <Mask />}
 		</ExcerptContainer>

@@ -77,6 +77,8 @@ function App(props) {
               <Route exact path="/" component={Home} />
               <Route exact path="/posts" component={Posts} />
               <Route exact path="/posts:index" component={Posts} />
+              <Route exact path="/posts/:category" component={Posts} />
+              <Route exact path="/posts/:category/:index" component={Posts} />
               <Route path="/post/:slug" component={Post} />
               <Route component={NotFound} />
             </Switch>

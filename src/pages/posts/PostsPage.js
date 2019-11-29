@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 import Sidebar from 'layout/Sidebar';
+import Space from 'elements/Space';
 
 import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';
@@ -14,17 +16,32 @@ const StyledDiv = styled.div`
 	display: flex;
 `;
 
-function PostsPage({ posts, match }) {
+function PostsPage({ posts, match, categories }) {
 	const PER_PAGE = 2;
 
+	const category = categories.find(cat => cat.slug === match.params.category);
+	const categoryId = category ? category.id : null;
+	const filteredPosts = categoryId ? posts.filter(post => post.categories.indexOf(categoryId) !== -1) : [...posts];
+	console.log('filtered posts', filteredPosts);
 	const toShow = [];
 	const currIndex = match.params.index ? parseInt(match.params.index - 1) * PER_PAGE : 0;
-	const maxIndex = posts.length - 1;
+	const maxIndex = filteredPosts.length - 1;
 	for (let i = currIndex; i <= Math.min(currIndex + PER_PAGE - 1, maxIndex); i++) {
-		toShow.push(posts[i]);
+		toShow.push(filteredPosts[i]);
 	}
-
-	const excerptsJSX = toShow.map(post => <Excerpt key={post.id} post={post} rootLink="/post" />);
+	console.log('to show', toShow);
+	const excerptsJSX = toShow.map((post, index) => (
+		<React.Fragment key={index}>
+			<Excerpt post={post} rootLink="/post" />
+			{index < toShow.length - 1 && (
+				<>
+					<Space height="30px" />
+					<Divider />
+					<Space height="30px" />
+				</>
+			)}
+		</React.Fragment>
+	));
 	return (
 		<Grid container spacing={3}>
 			<Helmet>
@@ -33,13 +50,20 @@ function PostsPage({ posts, match }) {
 			</Helmet>
 			<Grid item xs={12} md={9}>
 				<main>
-					{excerptsJSX}
-					<Pagination
-						perPage={PER_PAGE}
-						current={match.params.index ? parseInt(match.params.index) : 1}
-						total={posts.length}
-						limit={3}
-					/>
+					{filteredPosts.length > 0 ? (
+						<>
+							{excerptsJSX}
+							<Pagination
+								perPage={PER_PAGE}
+								current={match.params.index ? parseInt(match.params.index) : 1}
+								total={filteredPosts.length}
+								limit={3}
+								root={match.params.category ? `/posts/${match.params.category}/` : '/posts'}
+							/>
+						</>
+					) : (
+						<h1>Pas de publications trouvées</h1>
+					)}
 				</main>
 			</Grid>
 			<Grid item xs={12} md={3}>
@@ -51,7 +75,8 @@ function PostsPage({ posts, match }) {
 
 const mapStateToProps = state => {
 	return {
-		posts: state.posts.posts
+		posts: state.posts.posts,
+		categories: state.categories.categories
 	};
 };
 

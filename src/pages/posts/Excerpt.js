@@ -7,6 +7,7 @@ import { H2 } from 'elements/H';
 import P from 'elements/P';
 import WPContentContainer from 'elements/WPContentContainer';
 import PostInfos from 'elements/PostInfos';
+import WPParagraphWrapper from 'elements/WPParagraphWrapper';
 
 import PostHeader from './PostHeader';
 
@@ -23,7 +24,7 @@ function Excerpt({ allCategories, post, rootLink }) {
 				</NavLink>
 			</Link>
 			<PostInfos author={author_name} date={date} categories={postCategories} />
-			<P dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
+			<WPParagraphWrapper mb={0} dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
 		</div>
 	);
 }
