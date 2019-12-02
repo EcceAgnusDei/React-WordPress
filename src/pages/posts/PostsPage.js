@@ -5,9 +5,11 @@ import { Helmet } from 'react-helmet';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Sidebar from 'layout/Sidebar';
 import Space from 'elements/Space';
+import theme from 'theme';
 
 import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';
@@ -16,7 +18,7 @@ const StyledDiv = styled.div`
 	display: flex;
 `;
 
-function PostsPage({ posts, match, categories }) {
+function PostsPage({ posts, match, categories, loading }) {
 	const PER_PAGE = 2;
 
 	const category = categories.find(cat => cat.slug === match.params.category);
@@ -29,7 +31,6 @@ function PostsPage({ posts, match, categories }) {
 	for (let i = currIndex; i <= Math.min(currIndex + PER_PAGE - 1, maxIndex); i++) {
 		toShow.push(filteredPosts[i]);
 	}
-	console.log('to show', toShow);
 	const excerptsJSX = toShow.map((post, index) => (
 		<React.Fragment key={index}>
 			<Excerpt post={post} rootLink="/post" />
@@ -48,27 +49,35 @@ function PostsPage({ posts, match, categories }) {
 				<title>Last Posts</title>
 				<meta name="description" content="See the last posts" />
 			</Helmet>
-			<Grid item xs={12} md={9}>
-				<main>
-					{filteredPosts.length > 0 ? (
-						<>
-							{excerptsJSX}
-							<Pagination
-								perPage={PER_PAGE}
-								current={match.params.index ? parseInt(match.params.index) : 1}
-								total={filteredPosts.length}
-								limit={3}
-								root={match.params.category ? `/posts/${match.params.category}/` : '/posts'}
-							/>
-						</>
-					) : (
-						<h1>Pas de publications trouvées</h1>
-					)}
-				</main>
-			</Grid>
-			<Grid item xs={12} md={3}>
-				<Sidebar />
-			</Grid>
+			{!loading ? (
+				<>
+					<Grid item xs={12} md={9}>
+						<main>
+							{filteredPosts.length > 0 && (categoryId || !match.params.category) ? (
+								<>
+									{excerptsJSX}
+									<Pagination
+										perPage={PER_PAGE}
+										current={match.params.index ? parseInt(match.params.index) : 1}
+										total={filteredPosts.length}
+										limit={3}
+										root={
+											match.params.category ? `/posts/${match.params.category}/` : '/posts/page/'
+										}
+									/>
+								</>
+							) : (
+								<h1>Pas de publications trouvées</h1>
+							)}
+						</main>
+					</Grid>
+					<Grid item xs={12} md={3}>
+						<Sidebar />
+					</Grid>
+				</>
+			) : (
+				<CircularProgress size={theme.circularProgressSize} />
+			)}
 		</Grid>
 	);
 }
@@ -76,7 +85,8 @@ function PostsPage({ posts, match, categories }) {
 const mapStateToProps = state => {
 	return {
 		posts: state.posts.posts,
-		categories: state.categories.categories
+		categories: state.categories.categories,
+		loading: state.status.postsLoading
 	};
 };
 

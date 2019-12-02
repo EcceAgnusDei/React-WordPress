@@ -21,6 +21,7 @@ export const fetchPosts = () => dispatch => {
 						img:
 							getImageUrl != null
 								? {
+										full: res[0].media_details.sizes.full.source_url,
 										large: res[0].media_details.sizes.large
 											? res[0].media_details.sizes.large.source_url
 											: null,

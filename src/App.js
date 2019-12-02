@@ -20,9 +20,6 @@ import 'assets/css/style.css';
 
 const StyledContent = styled.div`
   padding-top: ${props => 1.5 * props.theme.headerHeight + 'px'};
-  font-family: ${props => props.theme.font.sans}, sans-serif;
-  background-color: ${props => props.theme.light};
-  color: ${props => props.theme.black};
 
   .primary-link {
     color: ${props => props.theme.primary};
@@ -36,9 +33,22 @@ const StyledContent = styled.div`
   }
 `;
 
+const GeneralStyle = styled.div`
+  position: relative;
+  color: ${props => props.theme.black};
+  font-family: ${props => props.theme.font.sans}, sans-serif;
+  min-height: 100vh;
+  background-color: ${props => props.theme.light};
+  .MuiCircularProgress-root {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - ${props => props.theme.circularProgressSize / 2}px);
+  }
+`;
+
 const muiTheme = createMuiTheme({
   palette: {
-    primary: { main: theme.primary, dark: theme.primaryHover },
+    primary: { main: theme.primary, dark: theme.primaryHover, light: theme.primaryLight },
     common: {
       black: theme.black
     }
@@ -63,27 +73,27 @@ function App(props) {
   return (
     <MuiThemeProvider theme={muiTheme}>
       <ThemeProvider theme={theme}>
-        <Header brand="ReactWP">
-          <NavLink exact to="/">
-            Home
-          </NavLink>
-          <NavLink exact to="/posts">
-            Posts
-          </NavLink>
-        </Header>
-        <StyledContent>
-          <Container>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/posts" component={Posts} />
-              <Route exact path="/posts:index" component={Posts} />
-              <Route exact path="/posts/:category" component={Posts} />
-              <Route exact path="/posts/:category/:index" component={Posts} />
-              <Route path="/post/:slug" component={Post} />
-              <Route component={NotFound} />
-            </Switch>
-          </Container>
-        </StyledContent>
+        <GeneralStyle>
+          <Header brand="ReactWP">
+            <NavLink exact to="/">
+              Home
+            </NavLink>
+            <NavLink to="/posts">Posts</NavLink>
+          </Header>
+          <StyledContent>
+            <Container>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/posts" component={Posts} />
+                <Route path="/posts/page/:index" component={Posts} />
+                <Route exact path="/posts/:category" component={Posts} />
+                <Route path="/posts/:category/:index" component={Posts} />
+                <Route path="/post/:slug" component={Post} />
+                <Route component={NotFound} />
+              </Switch>
+            </Container>
+          </StyledContent>
+        </GeneralStyle>
       </ThemeProvider>
     </MuiThemeProvider>
   );

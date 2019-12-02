@@ -33,10 +33,11 @@ const ExcerptContainer = styled.div`
 `;
 
 const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
-	const imageUrl = img && img.medium_large ? img.medium_large : img.medium ? img.medium : img.small;
+	const imageUrl = img ? (img.medium_large ? img.medium_large : img.medium ? img.medium : img.small) : null;
 	const wpParagraphRef = useRef(null);
 
 	const [overflow, setOverflow] = useState(false);
+	console.log('************', wpParagraphRef.current);
 
 	useEffect(() => {
 		if (
@@ -44,8 +45,10 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 			CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT
 		) {
 			setOverflow(true);
+		} else {
+			setOverflow(false);
 		}
-	}, []);
+	});
 
 	return (
 		<ExcerptContainer>

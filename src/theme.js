@@ -1,5 +1,6 @@
 export default {
 	primary: '#38afbc',
+	primaryLight: '#95d8df',
 	primaryHover: '#2e8e99',
 	light: '#f8f9fa',
 	lightGrey: '#BBBBBB',
@@ -15,5 +16,6 @@ export default {
 	font: {
 		sans: 'Proza Libre',
 		serif: 'EB Garamond'
-	}
-}
+	},
+	circularProgressSize: 80
+};
