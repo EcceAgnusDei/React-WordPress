@@ -10,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Sidebar from 'layout/Sidebar';
 import Space from 'elements/Space';
 import theme from 'theme';
+import { CONSTANTS } from 'config';
 
 import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';
@@ -19,12 +20,11 @@ const StyledDiv = styled.div`
 `;
 
 function PostsPage({ posts, match, categories, loading }) {
-	const PER_PAGE = 2;
+	const PER_PAGE = CONSTANTS.POSTS_PER_PAGE;
 
 	const category = categories.find(cat => cat.slug === match.params.category);
 	const categoryId = category ? category.id : null;
 	const filteredPosts = categoryId ? posts.filter(post => post.categories.indexOf(categoryId) !== -1) : [...posts];
-	console.log('filtered posts', filteredPosts);
 	const toShow = [];
 	const currIndex = match.params.index ? parseInt(match.params.index - 1) * PER_PAGE : 0;
 	const maxIndex = filteredPosts.length - 1;
@@ -44,7 +44,7 @@ function PostsPage({ posts, match, categories, loading }) {
 		</React.Fragment>
 	));
 	return (
-		<Grid container spacing={3}>
+		<Grid container spacing={2}>
 			<Helmet>
 				<title>Last Posts</title>
 				<meta name="description" content="See the last posts" />

@@ -55,7 +55,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 					<Space />
 					<Divider />
 					<Space height="30px" />
-					<Grid container spacing={3}>
+					<Grid container spacing={2}>
 						<Grid item xs={12} md={8} lg={9}>
 							<main>
 								{post.img && <StyledImg src={post.img.large || post.img.full} />}

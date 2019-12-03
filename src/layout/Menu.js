@@ -43,10 +43,10 @@ const StyledNav = styled.nav`
 function Menu({ children, vertical }) {
 	const menuJSX = children.map((item, index) => {
 		return (
-			<>
-				<MenuItem key={index}>{item}</MenuItem>
+			<React.Fragment key={index}>
+				<MenuItem>{item}</MenuItem>
 				{vertical && <Space />}
-			</>
+			</React.Fragment>
 		);
 	});
 
