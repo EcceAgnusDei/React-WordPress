@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 
 import Categories from 'widgets/CategoriesWidget';
 import LastPosts from 'widgets/LastPostsWidget';
+import Space from 'elements/Space';
 
-import SideBarButton from './SideBarButton';
-
+import Drawer from 'elements/Drawer';
 import theme from 'theme';
 import AppWrapper from 'AppWrapper';
 
-const StyledDiv = styled(AppWrapper)`
-	width: 320px;
-	padding: 12px;
-`;
+import SideBarButton from './SideBarButton';
 
 function Sidebar() {
 	const [isOpen, toggleDrawer] = useState(false);
@@ -26,10 +22,8 @@ function Sidebar() {
 				<Categories />
 			</Hidden>
 			<Drawer anchor="right" open={isOpen} onClose={() => toggleDrawer(false)}>
-				<StyledDiv onClick={() => toggleDrawer(false)}>
-					<LastPosts />
-					<Categories />
-				</StyledDiv>
+				<LastPosts />
+				<Categories />
 			</Drawer>
 			<Hidden mdUp>
 				<SideBarButton onClick={() => toggleDrawer(true)} />

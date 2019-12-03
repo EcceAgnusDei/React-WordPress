@@ -6,6 +6,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const StyledFab = styled.div`
 	position: fixed;
+	z-index: 2;
 	bottom: 30px;
 	right: 70px;
 `;

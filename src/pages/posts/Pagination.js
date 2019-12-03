@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
-import BackIcon from '@material-ui/icons/ArrowBackIos';
-import ForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import BeforeIcon from '@material-ui/icons/NavigateBefore';
+import NextIcon from '@material-ui/icons/NavigateNext';
 
 const StyledDiv = styled.div`
 	display: flex;
@@ -79,24 +79,24 @@ function Pagination({ perPage, total, current, limit, root }) {
 			{current > 1 ? (
 				<NavLink to={`${root}${current - 1}`}>
 					<Button size={buttonSize}>
-						<BackIcon />
+						<BeforeIcon />
 					</Button>
 				</NavLink>
 			) : (
 				<Button disabled size={buttonSize}>
-					<BackIcon />
+					<BeforeIcon />
 				</Button>
 			)}
 			{digitsJSX}
 			{current < total / perPage ? (
 				<NavLink to={`${root}${current + 1}`}>
 					<Button size={buttonSize}>
-						<ForwardIcon />
+						<NextIcon />
 					</Button>
 				</NavLink>
 			) : (
 				<Button disabled size={buttonSize}>
-					<ForwardIcon />
+					<NextIcon />
 				</Button>
 			)}
 		</StyledDiv>

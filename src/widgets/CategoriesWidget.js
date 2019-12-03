@@ -13,9 +13,10 @@ function CategoriesWidget({ categories }) {
 	const categoriesJSX = categories.map((cat, index) => (
 		<React.Fragment key={index}>
 			<NavLink to={`/posts/${cat.slug}`} className="black-link">
-				<ListItem button>{cat.name}</ListItem>
+				<ListItem button divider>
+					{cat.name}
+				</ListItem>
 			</NavLink>
-			{index < categories.length - 1 && <Divider />}
 		</React.Fragment>
 	));
 	return (

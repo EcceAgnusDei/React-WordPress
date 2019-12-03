@@ -58,20 +58,19 @@ const WPContentContainer = styled.div`
 	.blocks-gallery-item {
 		display: flex;
 		flex-grow: 1;
+		padding: 7px
 		flex-direction: column;
 		justify-content: center;
 		position: relative;
-		margin-bottom: 16px;
+		min-width: 200px;
 	}
 
 	.columns-3 .blocks-gallery-item {
 		width: calc((100% - 32px)/3);
-		margin-right: 16px;
 	}
 
 	.columns-2 .blocks-gallery-item {
 		width: calc((100% - 16px)/2);
-		margin-right: 16px;
 	}
 
 	.columns-3 .blocks-gallery-item:nth-of-type(3n) {

@@ -6,11 +6,11 @@ import PostInfos from 'elements/PostInfos';
 
 function PostHeader({ title, author, date, categories }) {
 	return (
-		<div>
+		<header>
 			<H1 m={0}>{title}</H1>
 			<PostInfos author={author} date={date} categories={categories} />
-		</div>
+		</header>
 	);
 }
 
-export default PostHeader
+export default PostHeader;

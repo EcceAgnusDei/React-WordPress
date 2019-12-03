@@ -3,13 +3,15 @@ import styled from 'styled-components';
 
 import Hidden from '@material-ui/core/Hidden';
 
+import Space from 'elements/Space';
+
 const MenuItem = styled.li`
 	list-style-type: none;
 	font-family: ${props => props.theme.font.sans}, sans-serif;
 	a {
 		text-decoration: none;
 		text-transform: uppercase;
-		color: ${props => (props.current ? props.theme.primary : props.theme.black)};
+		color: ${props => props.theme.black};
 		font-size: 0.9em;
 		margin-left: 12px;
 		&:hover {
@@ -23,7 +25,6 @@ const MenuItem = styled.li`
 
 const StyledNav = styled.nav`
 	align-items: center;
-	${props => props.vertical && 'height: 100%;'}
 	display: flex;
 	& ul {
 		margin: 0;
@@ -34,7 +35,6 @@ const StyledNav = styled.nav`
 			props.vertical &&
 			`
 			flex-direction: column;
-			height: 100%;
 			width: 100%;
 		`}
 	}
@@ -43,9 +43,10 @@ const StyledNav = styled.nav`
 function Menu({ children, vertical }) {
 	const menuJSX = children.map((item, index) => {
 		return (
-			<MenuItem key={index} current={false}>
-				{item}
-			</MenuItem>
+			<>
+				<MenuItem key={index}>{item}</MenuItem>
+				{vertical && <Space />}
+			</>
 		);
 	});
 

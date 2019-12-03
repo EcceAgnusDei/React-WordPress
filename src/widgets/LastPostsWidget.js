@@ -74,12 +74,11 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 	const filteredPosts = allPosts.filter(post => post.id !== currentPost.id);
 	const lastPostsJSX = filteredPosts.slice(1, number).map((post, index) => (
 		<React.Fragment key={index}>
-			<ListItem button>
+			<ListItem button divider>
 				<NavLink to={`/post/${post.slug}`} className="black-link small-font">
 					{post.title.rendered}
 				</NavLink>
 			</ListItem>
-			<Divider />
 		</React.Fragment>
 	));
 

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Hidden from '@material-ui/core/Hidden';
 import FlexContainer from 'elements/FlexContainer';
 import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MuiMenu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
+
+import Drawer from 'elements/Drawer';
+import Space from 'elements/Space';
+import AppWrapper from 'AppWrapper';
 
 import Menu from './Menu';
 import Logo from './Logo';
@@ -25,20 +27,7 @@ const StyledHeader = styled.header`
 
 function Header({ brand, children }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
-
-	const handleClick = event => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
-	const menuJSX = children.map((item, index) => (
-		<MenuItem key={index} onClick={handleClose}>
-			{item}
-		</MenuItem>
-	));
+	const [isOpen, toggleDrawer] = useState(false);
 
 	return (
 		<StyledHeader>
@@ -49,18 +38,12 @@ function Header({ brand, children }) {
 						<Menu>{children}</Menu>
 					</Hidden>
 					<Hidden mdUp>
-						<IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+						<IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={() => toggleDrawer(true)}>
 							<MenuIcon fontSize="large" color="primary" />
 						</IconButton>
-						<MuiMenu
-							id="simple-menu"
-							anchorEl={anchorEl}
-							keepMounted
-							open={Boolean(anchorEl)}
-							onClose={handleClose}
-						>
-							{menuJSX}
-						</MuiMenu>
+						<Drawer anchor="right" open={isOpen} onClose={() => toggleDrawer(false)}>
+							<Menu vertical>{children}</Menu>
+						</Drawer>
 					</Hidden>
 				</FlexContainer>
 			</Container>
