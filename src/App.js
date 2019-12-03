@@ -16,41 +16,11 @@ import Header from './layout/Header';
 import Home from './pages/home/HomePage';
 import NotFound from './pages/NotFound';
 import theme from './theme';
+import AppWrapper from 'AppWrapper';
 import 'assets/css/style.css';
 
 const StyledContent = styled.div`
   padding-top: ${props => 1.5 * props.theme.headerHeight + 'px'};
-
-  .primary-link {
-    color: ${props => props.theme.primary};
-  }
-  .primary-link:hover {
-    color: ${props => props.theme.primaryHover};
-  }
-
-  .black-link {
-    color: ${props => props.theme.black};
-  }
-
-  .small-font {
-    font-size: 0.8rem;
-  }
-`;
-
-const GeneralStyle = styled.div`
-  position: relative;
-  color: ${props => props.theme.black};
-  font-family: ${props => props.theme.font.sans}, sans-serif;
-  min-height: 100vh;
-  background-color: ${props => props.theme.light};
-  .MuiCircularProgress-root {
-    position: absolute;
-    top: 50%;
-    left: calc(50% - ${props => props.theme.circularProgressSize / 2}px);
-  }
-  .MuiDivider-root {
-    background-color: rgba(0, 0, 0, 0.18);
-  }
 `;
 
 const muiTheme = createMuiTheme({
@@ -80,7 +50,7 @@ function App(props) {
   return (
     <MuiThemeProvider theme={muiTheme}>
       <ThemeProvider theme={theme}>
-        <GeneralStyle>
+        <AppWrapper>
           <Header brand="ReactWP">
             <NavLink exact to="/">
               Home
@@ -100,7 +70,7 @@ function App(props) {
               </Switch>
             </Container>
           </StyledContent>
-        </GeneralStyle>
+        </AppWrapper>
       </ThemeProvider>
     </MuiThemeProvider>
   );

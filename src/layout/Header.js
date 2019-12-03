@@ -15,15 +15,15 @@ import Logo from './Logo';
 const StyledHeader = styled.header`
 	min-height: ${props => props.theme.headerHeight + 'px'};
 	width: 100%;
-	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 	display: flex;
 	align-items: center;
-	position: fixed; 
-	z-index: 500;
+	position: fixed;
+	z-index: 2;
 	background-color: ${props => props.theme.light};
 `;
 
-function Header({brand, children}) {
+function Header({ brand, children }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = event => {
@@ -35,39 +35,36 @@ function Header({brand, children}) {
 	};
 
 	const menuJSX = children.map((item, index) => (
-		<MenuItem key={index} onClick={handleClose}>{item}</MenuItem>
-	))
+		<MenuItem key={index} onClick={handleClose}>
+			{item}
+		</MenuItem>
+	));
 
 	return (
 		<StyledHeader>
 			<Container>
 				<FlexContainer>
-				{brand &&
-					<Logo>
-						{brand}
-					</Logo>}
+					{brand && <Logo>{brand}</Logo>}
 					<Hidden smDown>
-						<Menu>
-							{children}
-						</Menu>
+						<Menu>{children}</Menu>
 					</Hidden>
 					<Hidden mdUp>
 						<IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-							<MenuIcon fontSize="large" color='primary'/>
+							<MenuIcon fontSize="large" color="primary" />
 						</IconButton>
-						<MuiMenu 
+						<MuiMenu
 							id="simple-menu"
-					        anchorEl={anchorEl}
-					        keepMounted
-					        open={Boolean(anchorEl)}
-					        onClose={handleClose}
-					    >
+							anchorEl={anchorEl}
+							keepMounted
+							open={Boolean(anchorEl)}
+							onClose={handleClose}
+						>
 							{menuJSX}
 						</MuiMenu>
 					</Hidden>
 				</FlexContainer>
 			</Container>
-      	</StyledHeader>
+		</StyledHeader>
 	);
 }
 
