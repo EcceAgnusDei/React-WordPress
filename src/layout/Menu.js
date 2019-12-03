@@ -11,7 +11,6 @@ const MenuItem = styled.li`
 		text-transform: uppercase;
 		color: ${props => (props.current ? props.theme.primary : props.theme.black)};
 		font-size: 0.9em;
-		transition: all 200ms linear;
 		margin-left: 12px;
 		&:hover {
 			color: ${props => props.theme.primary};

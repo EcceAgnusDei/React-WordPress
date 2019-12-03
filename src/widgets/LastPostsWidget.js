@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import Separator from 'elements/Separator';
-import Link from 'elements/Link';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 import { H2 } from 'elements/H';
 import P from 'elements/P';
 import Mask from 'elements/Mask';
@@ -37,7 +39,6 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 	const wpParagraphRef = useRef(null);
 
 	const [overflow, setOverflow] = useState(false);
-	console.log('************', wpParagraphRef.current);
 
 	useEffect(() => {
 		if (
@@ -52,19 +53,19 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 
 	return (
 		<ExcerptContainer>
-			{img && <StyledImg src={img.medium} alt={img.alt_text} />}
-			<StyledH2 mt={1}>
-				<Link>
-					<NavLink to={`/post/${slug}`}>{title.rendered}</NavLink>
-				</Link>
-			</StyledH2>
-			<WPParagraphWrapper
-				mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
-				dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
-				ref={wpParagraphRef}
-				size="0.8"
-			/>
-			{overflow && <Mask />}
+			<ListItem button>
+				<NavLink to={`/post/${slug}`} className="black-link">
+					{img && <StyledImg src={img.medium} alt={img.alt_text} />}
+					<StyledH2 mt={1}>{title.rendered}</StyledH2>
+					<WPParagraphWrapper
+						mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
+						dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
+						ref={wpParagraphRef}
+						size="0.8"
+					/>
+					{overflow && <Mask />}
+				</NavLink>
+			</ListItem>
 		</ExcerptContainer>
 	);
 };
@@ -73,10 +74,12 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 	const filteredPosts = allPosts.filter(post => post.id !== currentPost.id);
 	const lastPostsJSX = filteredPosts.slice(1, number).map((post, index) => (
 		<React.Fragment key={index}>
-			<Link color="black">
-				<NavLink to={`/post/${post.slug}`}>{post.title.rendered}</NavLink>
-			</Link>
-			<Separator m={1} />
+			<ListItem button>
+				<NavLink to={`/post/${post.slug}`} className="black-link small-font">
+					{post.title.rendered}
+				</NavLink>
+			</ListItem>
+			<Divider />
 		</React.Fragment>
 	));
 
@@ -86,9 +89,10 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 
 			{loading ? null : (
 				<>
+					<Divider />
 					<FirstPost post={filteredPosts[0]} />
-					<Separator m={1} />
-					{lastPostsJSX}
+					<Divider />
+					<List disablePadding>{lastPostsJSX}</List>
 				</>
 			)}
 		</WidgetWrapper>

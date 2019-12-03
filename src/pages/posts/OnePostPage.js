@@ -5,11 +5,11 @@ import { Helmet } from 'react-helmet';
 
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 
 import Sidebar from 'layout/Sidebar';
 import { getBySlug } from 'actions/postActions.js';
 import NotFound from 'pages/NotFound.js';
-import Separator from 'elements/Separator';
 import Space from 'elements/Space';
 import WPContentContainer from 'elements/WPContentContainer';
 import theme from 'theme';
@@ -41,7 +41,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 			{loading ? (
 				<CircularProgress size={theme.circularProgressSize} />
 			) : post.id ? (
-				<Grid container spacing={3}>
+				<>
 					<Helmet>
 						<title>{post.title.rendered}</title>
 						<meta name="description" content={metaDescription} />
@@ -52,8 +52,9 @@ function Post({ post, loading, match, getPost, allCategories }) {
 						date={post.date}
 						categories={postCategories}
 					/>
-					<Separator />
 					<Space />
+					<Divider />
+					<Space height="30px" />
 					<Grid container spacing={3}>
 						<Grid item xs={12} md={9}>
 							{post.img && <StyledImg src={post.img.large || post.img.full} />}
@@ -65,7 +66,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 							<Sidebar />
 						</Grid>
 					</Grid>
-				</Grid>
+				</>
 			) : (
 				<NotFound />
 			)}

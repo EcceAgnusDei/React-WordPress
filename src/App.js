@@ -31,6 +31,10 @@ const StyledContent = styled.div`
   .black-link {
     color: ${props => props.theme.black};
   }
+
+  .small-font {
+    font-size: 0.8rem;
+  }
 `;
 
 const GeneralStyle = styled.div`
@@ -43,6 +47,9 @@ const GeneralStyle = styled.div`
     position: absolute;
     top: 50%;
     left: calc(50% - ${props => props.theme.circularProgressSize / 2}px);
+  }
+  .MuiDivider-root {
+    background-color: rgba(0, 0, 0, 0.18);
   }
 `;
 

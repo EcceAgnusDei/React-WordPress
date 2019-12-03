@@ -8,13 +8,17 @@ const StyledHeader = styled.div`
 	margin-bottom: 0;
 `;
 
-function WidgetHeader({ children }) {
+function WidgetHeader({ children, mb }) {
 	return (
 		<StyledHeader>
 			{children}
-			<Underliner mt={0} mb={2} />
+			<Underliner mt={0} mb={mb} />
 		</StyledHeader>
 	);
 }
+
+WidgetHeader.defaultProps = {
+	mb: 2
+};
 
 export default WidgetHeader;

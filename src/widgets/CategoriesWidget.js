@@ -21,7 +21,7 @@ function CategoriesWidget({ categories }) {
 	return (
 		<WidgetWrapper>
 			<WidgetHeader>les catégories</WidgetHeader>
-			<List>{categoriesJSX}</List>
+			<List disablePadding>{categoriesJSX}</List>
 		</WidgetWrapper>
 	);
 }
