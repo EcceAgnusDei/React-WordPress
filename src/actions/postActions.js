@@ -14,9 +14,11 @@ export const fetchPosts = () => dispatch => {
 					getImageUrl = fetch(`/wp-json/wp/v2/media/${post.featured_media}`).then(res => res.json());
 				}
 				const getAuthor = fetch(`/wp-json/wp/v2/users/${post.author}`).then(res => res.json());
-				Promise.all([getImageUrl, getAuthor]).then(res => {
+				const getViews = fetch(`/react-api/getPostStats.php?id=${post.id}`).then(res => res.json());
+				Promise.all([getImageUrl, getAuthor, getViews]).then(res => {
 					posts.push({
 						...post,
+						views: JSON.parse(res[2]),
 						author_name: res[1].name,
 						img:
 							getImageUrl != null

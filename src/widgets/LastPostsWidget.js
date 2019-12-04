@@ -70,9 +70,36 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 	);
 };
 
-function LastPostsWidget({ number, allPosts, currentPost, loading }) {
+function LastPostsWidget({ number, allPosts, currentPost, loading, variant }) {
 	const filteredPosts = allPosts.filter(post => post.id !== currentPost.id);
-	const lastPostsJSX = filteredPosts.slice(1, number).map((post, index) => (
+	let toShow = [];
+	let title;
+
+	switch (variant) {
+		case 'mostPopular':
+			toShow = filteredPosts.sort((a, b) => (b.views || 0) - (a.views || 0));
+			title = 'les articles populaires';
+			break;
+		case 'sameCategory':
+			if (currentPost.id) {
+				currentPost.categories.forEach(cat => {
+					toShow.push(...filteredPosts.filter(post => post.categories.indexOf(cat) != -1));
+				});
+			}
+			title = 'dans la même catégory';
+			break;
+		case 'sameAuthor':
+			if (currentPost.id) {
+				toShow = filteredPosts.filter(post => post.author === currentPost.author);
+			}
+			title = 'du même auteur';
+			break;
+		default:
+			toShow = filteredPosts;
+			title = 'les derniers articles';
+	}
+
+	const toShowJSX = toShow.slice(1, number).map((post, index) => (
 		<React.Fragment key={index}>
 			<ListItem button divider>
 				<NavLink to={`/post/${post.slug}`} className="black-link small-font">
@@ -82,18 +109,16 @@ function LastPostsWidget({ number, allPosts, currentPost, loading }) {
 		</React.Fragment>
 	));
 
-	return (
-		<WidgetWrapper>
-			<WidgetHeader>les derniers articles</WidgetHeader>
+	const noRender =
+		loading || ((variant === 'sameCategory' || variant === 'sameAuthor') && !currentPost.id) || toShow.length == 0;
 
-			{loading ? null : (
-				<>
-					<Divider />
-					<FirstPost post={filteredPosts[0]} />
-					<Divider />
-					<List disablePadding>{lastPostsJSX}</List>
-				</>
-			)}
+	return noRender ? null : (
+		<WidgetWrapper>
+			<WidgetHeader>{title}</WidgetHeader>
+			<Divider />
+			<FirstPost post={toShow[0]} />
+			<Divider />
+			<List disablePadding>{toShowJSX}</List>
 		</WidgetWrapper>
 	);
 }

@@ -63,6 +63,10 @@ function App(props) {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/posts" component={Posts} />
                 <Route path="/posts/page/:index" component={Posts} />
+                <Route exact path="/posts/archives/:year" component={Posts} />
+                <Route path="/posts/archives/:year/page/:index" component={Posts} />
+                <Route exact path="/posts/archives/:year/:month" component={Posts} />
+                <Route path="/posts/archives/:year/:month/page/:index" component={Posts} />
                 <Route exact path="/posts/:category" component={Posts} />
                 <Route path="/posts/:category/:index" component={Posts} />
                 <Route path="/post/:slug" component={Post} />

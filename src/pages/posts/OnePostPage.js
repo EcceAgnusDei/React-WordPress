@@ -36,6 +36,20 @@ function Post({ post, loading, match, getPost, allCategories }) {
 		}
 	}, [loading, match]);
 
+	useEffect(() => {
+		if (post.id) {
+			fetch('/react-api/updatePostStats.php', {
+				method: 'POST',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					id: post.id
+				})
+			});
+		}
+	}, [post]);
+
 	return (
 		<>
 			{loading ? (
@@ -50,6 +64,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 						title={post.title.rendered}
 						author={post.author_name}
 						date={post.date}
+						views={post.views}
 						categories={postCategories}
 					/>
 					<Space />

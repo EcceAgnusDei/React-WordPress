@@ -20,8 +20,8 @@ const ExcerptContainer = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-	display: ${props => (props.fill ? 'block' : 'table')}
-	${props => props.fill && 'width: 100%;'}
+	display: ${props => (props.fillSpace ? 'block' : 'table')}
+	${props => props.fillSpace && 'width: 100%;'}
 	height: ${props => props.height};
 	@media (max-width: ${props => props.theme.md}) {
 		height: auto;
@@ -37,8 +37,8 @@ function Excerpt({ allCategories, post, rootLink }) {
 	const spacing = 2;
 
 	useEffect(() => {
-		console.log('***********Excerpt did mount************');
-		console.log('*****Refs**********', contentRef.current.getBoundingClientRect());
+		// console.log('***********Excerpt did mount************');
+		// console.log('*****Refs**********', contentRef.current.getBoundingClientRect());
 		setImageH(contentRef.current.getBoundingClientRect().height - spacing * 8 + 'px');
 	});
 
@@ -46,7 +46,7 @@ function Excerpt({ allCategories, post, rootLink }) {
 		<Grid container spacing={spacing} alignItems="flex-start">
 			{img && (
 				<Grid item xs={12} md={5}>
-					<StyledImage src={img.large || img.full} alt={img.alt_text} height={imageH} fill />
+					<StyledImage src={img.large || img.full} alt={img.alt_text} height={imageH} fillSpace />
 				</Grid>
 			)}
 			<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>

@@ -1,29 +1,14 @@
 import React from 'react';
 
-const months = [
-	'Janvier',
-	'Février',
-	'Mars',
-	'Avril',
-	'Mai',
-	'Juin',
-	'Juillet',
-	'Aout',
-	'Septembre',
-	'Octobre',
-	'Novembre',
-	'Décembre'
-]
+import { months } from 'utils/utils';
 
 function DatePresentational({ date }) {
 	const dateArray = date.split('-');
 	const year = dateArray[0];
-	const day = dateArray[1];
-	const month = dateArray[2].slice(0, 2);
+	const day = parseInt(dateArray[2].slice(0, 2)) + '';
+	const month = dateArray[1];
 
-	return (
-		<>{`${day} ${months[parseInt(month) - 1]} ${year}`}</>
-	);
+	return <>{`${day} ${months[parseInt(month) - 1]} ${year}`}</>;
 }
 
 export default DatePresentational;

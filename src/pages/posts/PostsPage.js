@@ -24,7 +24,16 @@ function PostsPage({ posts, match, categories, loading }) {
 
 	const category = categories.find(cat => cat.slug === match.params.category);
 	const categoryId = category ? category.id : null;
-	const filteredPosts = categoryId ? posts.filter(post => post.categories.indexOf(categoryId) !== -1) : [...posts];
+	const filteredPosts = categoryId
+		? posts.filter(post => post.categories.indexOf(categoryId) !== -1)
+		: match.params.year
+		? match.params.month
+			? posts.filter(
+					post => post.date.slice(0, 4) === match.params.year && post.date.slice(5, 7) === match.params.month
+			  )
+			: posts.filter(post => post.date.slice(0, 4) === match.params.year)
+		: [...posts];
+
 	const toShow = [];
 	const currIndex = match.params.index ? parseInt(match.params.index - 1) * PER_PAGE : 0;
 	const maxIndex = filteredPosts.length - 1;
@@ -43,6 +52,15 @@ function PostsPage({ posts, match, categories, loading }) {
 			)}
 		</React.Fragment>
 	));
+
+	const paginationRoot = match.params.category
+		? `/posts/${match.params.category}/`
+		: match.params.year
+		? match.params.month
+			? `/posts/archives/${match.params.year}/${match.params.month}/page/`
+			: `/posts/archives/${match.params.year}/page/`
+		: '/posts/page/';
+
 	return (
 		<Grid container spacing={2}>
 			<Helmet>
@@ -61,9 +79,7 @@ function PostsPage({ posts, match, categories, loading }) {
 										current={match.params.index ? parseInt(match.params.index) : 1}
 										total={filteredPosts.length}
 										limit={3}
-										root={
-											match.params.category ? `/posts/${match.params.category}/` : '/posts/page/'
-										}
+										root={paginationRoot}
 									/>
 								</>
 							) : (
