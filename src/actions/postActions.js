@@ -54,3 +54,11 @@ export const fetchPosts = () => dispatch => {
 export const getBySlug = slug => {
 	return { type: GET_BY_SLUG, payload: slug };
 };
+
+export const testFetch = () => dispatch => {
+	for (let i = 0; i < 100; i++) {
+		fetch('/wp-json/wp/v2/posts/1')
+			.then(res => res.json())
+			.then(json => console.log('fetched'));
+	}
+};

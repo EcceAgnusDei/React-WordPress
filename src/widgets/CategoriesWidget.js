@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 
 import WidgetHeader from './WidgetHeader';
 import WidgetWrapper from './WidgetWrapper.js';
