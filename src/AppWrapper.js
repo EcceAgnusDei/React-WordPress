@@ -28,6 +28,9 @@ const AppWrapper = styled.div`
 	.MuiDivider-root {
 		background-color: rgba(0, 0, 0, 0.18);
 	}
+	.MuiExpansionPanelDetails-root {
+		flex-direction: column;
+	}
 `;
 
 export default AppWrapper;
