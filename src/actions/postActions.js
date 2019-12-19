@@ -34,10 +34,8 @@ export const fetchPosts = () => dispatch => {
 					: null
 			});
 		});
-		if (res[3].length === posts.length) {
-			dispatch(postsLoading(false));
-			dispatch({ type: GET_POSTS, payload: posts });
-		}
+		dispatch(postsLoading(false));
+		dispatch({ type: GET_POSTS, payload: posts });
 	});
 	posts.sort((a, b) => b.id - a.id);
 };

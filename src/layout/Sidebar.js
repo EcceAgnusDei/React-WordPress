@@ -16,21 +16,23 @@ import SideBarButton from './SideBarButton';
 
 function Sidebar() {
 	const [isOpen, toggleDrawer] = useState(false);
-	const Content = (
+	const Content = ({ inDrawer }) => (
 		<>
 			<LastPosts />
 			<LastPosts variant="mostPopular" />
 			<LastPosts variant="sameCategory" />
 			<LastPosts variant="sameAuthor" />
 			<Categories />
-			<ArchivesWidget />
+			<ArchivesWidget expanded={inDrawer} />
 		</>
 	);
 	return (
 		<>
-			<Hidden smDown>{Content}</Hidden>
+			<Hidden smDown>
+				<Content />
+			</Hidden>
 			<Drawer anchor="right" open={isOpen} onClose={() => toggleDrawer(false)}>
-				{Content}
+				<Content inDrawer />
 			</Drawer>
 			<Hidden mdUp>
 				<SideBarButton onClick={() => toggleDrawer(true)} />

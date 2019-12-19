@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { months } from 'utils/utils';
+import { months, parseDate } from 'utils/utils';
 
 function DatePresentational({ date }) {
-	const dateArray = date.split('-');
-	const year = dateArray[0];
-	const day = parseInt(dateArray[2].slice(0, 2)) + '';
-	const month = dateArray[1];
+	const parsedDate = parseDate(date);
 
-	return <>{`${day} ${months[parseInt(month) - 1]} ${year}`}</>;
+	return <>{`${parsedDate.day} ${months[parseInt(parsedDate.month) - 1]} ${parsedDate.year}`}</>;
 }
 
 export default DatePresentational;
