@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
-import { fetchPosts, testFetch } from './actions/postActions.js';
+import { fetchPosts } from './actions/postActions.js';
 import { fetchCategories } from './actions/categoryActions.js';
 import Posts from './pages/posts/PostsPage';
 import Post from './pages/posts/OnePostPage';
@@ -45,7 +45,6 @@ function App(props) {
   useEffect(() => {
     props.fetchAllPosts();
     props.fetchAllCategories();
-    props.fetchTest();
   }, []);
 
   return (
@@ -84,8 +83,7 @@ function App(props) {
 const mapDispatchToProps = dispatch => {
   return {
     fetchAllPosts: () => dispatch(fetchPosts()),
-    fetchAllCategories: () => dispatch(fetchCategories()),
-    fetchTest: () => dispatch(testFetch())
+    fetchAllCategories: () => dispatch(fetchCategories())
   };
 };
 

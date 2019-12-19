@@ -22,7 +22,6 @@ function ArchivesWidget() {
 
 	const archivesJSX = years.map(year => {
 		const monthJSX = months.map((month, index) => {
-			console.log(index.toString());
 			const correctedIndex = index + 1;
 			const niceMonth =
 				correctedIndex.toString().length < 2 ? '0'.concat(correctedIndex) : correctedIndex.toString();
