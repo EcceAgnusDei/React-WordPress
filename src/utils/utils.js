@@ -35,3 +35,12 @@ export const parseDate = date => {
 		year
 	};
 };
+
+export const getSize = theme => {
+	const width = window.innerWidth;
+	if (width < parseInt(theme.sm)) return 'xs';
+	else if (width < parseInt(theme.md)) return 'sm';
+	else if (width < parseInt(theme.lg)) return 'md';
+	else if (width < parseInt(theme.xl)) return 'lg';
+	else return 'xl';
+};

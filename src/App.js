@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,6 +10,9 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
 import { fetchPosts } from './actions/postActions.js';
 import { fetchCategories } from './actions/categoryActions.js';
+import { setScreenSize } from './actions/statusActions.js';
+
+import { getSize } from 'utils/utils';
 import Posts from './pages/posts/PostsPage';
 import Post from './pages/posts/OnePostPage';
 import Header from './layout/Header';
@@ -41,11 +44,18 @@ const muiTheme = createMuiTheme({
   }
 });
 
-function App(props) {
+function App({ fetchAllCategories, fetchAllPosts, setScreenSize, screenSize }) {
   useEffect(() => {
-    props.fetchAllPosts();
-    props.fetchAllCategories();
+    fetchAllPosts();
+    fetchAllCategories();
   }, []);
+
+  useEffect(() => {
+    window.onresize = () => {
+      console.log(screenSize);
+      if (screenSize != getSize(theme)) setScreenSize(getSize(theme));
+    };
+  }, [screenSize]);
 
   return (
     <MuiThemeProvider theme={muiTheme}>
@@ -83,8 +93,15 @@ function App(props) {
 const mapDispatchToProps = dispatch => {
   return {
     fetchAllPosts: () => dispatch(fetchPosts()),
-    fetchAllCategories: () => dispatch(fetchCategories())
+    fetchAllCategories: () => dispatch(fetchCategories()),
+    setScreenSize: size => dispatch(setScreenSize(size))
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = state => {
+  return {
+    screenSize: state.status.screenSize
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

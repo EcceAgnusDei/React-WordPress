@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
+import ListItem from '@material-ui/core/ListItem';
 
 import Link from 'elements/Link';
 import { H2 } from 'elements/H';
@@ -12,12 +13,10 @@ import WPContentContainer from 'elements/WPContentContainer';
 import PostInfos from 'elements/PostInfos';
 import WPParagraphWrapper from 'elements/WPParagraphWrapper';
 import Image from 'elements/Image';
+import Space from 'elements/Space';
+import ObjectFitImg from 'elements/ObjectFitImg';
 
 import PostHeader from './PostHeader';
-
-const ExcerptContainer = styled.div`
-	display: flex;
-`;
 
 const StyledImage = styled(Image)`
 	display: ${props => (props.fillSpace ? 'block' : 'table')}
@@ -43,24 +42,24 @@ function Excerpt({ allCategories, post, rootLink }) {
 	});
 
 	return (
-		<Grid container spacing={spacing} alignItems="flex-start">
-			{img && (
-				<Grid item xs={12} md={5}>
-					<StyledImage src={img.large || img.full} alt={img.alt_text} height={imageH} fillSpace />
-				</Grid>
-			)}
-			<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>
-				<PostInfos author={author_name} date={date} categories={postCategories} />
-				<Link>
-					<NavLink to={`${rootLink}/${slug}`}>
+		<NavLink to={`${rootLink}/${slug}`}>
+			<ListItem button divider>
+				<Grid container spacing={spacing} alignItems="flex-start">
+					{img && (
+						<Grid item xs={12} md={5}>
+							<ObjectFitImg src={img.large || img.full} alt={img.alt_text} height={imageH} fillSpace />
+						</Grid>
+					)}
+					<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>
+						<PostInfos author={author_name} date={date} categories={postCategories} />
 						<H2 mb={2} mt={2}>
 							{title.rendered}
 						</H2>
-					</NavLink>
-				</Link>
-				<WPParagraphWrapper mb={0} dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
-			</Grid>
-		</Grid>
+						<WPParagraphWrapper mb={0} dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
+					</Grid>
+				</Grid>
+			</ListItem>
+		</NavLink>
 	);
 }
 

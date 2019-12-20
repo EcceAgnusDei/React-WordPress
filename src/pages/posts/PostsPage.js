@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import List from '@material-ui/core/List';
 
 import Sidebar from 'layout/Sidebar';
 import Space from 'elements/Space';
@@ -18,6 +19,13 @@ import Excerpt from './Excerpt.js';
 const StyledDiv = styled.div`
 	display: flex;
 `;
+
+const ExcerptListContainer = styled.div`
+	.MuiListItem-root {
+		padding-top: 32px;
+		padding-bottom: 32px;
+	}
+`
 
 function PostsPage({ posts, match, categories, loading }) {
 	const PER_PAGE = CONSTANTS.POSTS_PER_PAGE;
@@ -40,18 +48,7 @@ function PostsPage({ posts, match, categories, loading }) {
 	for (let i = currIndex; i <= Math.min(currIndex + PER_PAGE - 1, maxIndex); i++) {
 		toShow.push(filteredPosts[i]);
 	}
-	const excerptsJSX = toShow.map((post, index) => (
-		<React.Fragment key={index}>
-			<Excerpt post={post} rootLink="/post" />
-			{index < toShow.length - 1 && (
-				<>
-					<Space height="30px" />
-					<Divider />
-					<Space height="30px" />
-				</>
-			)}
-		</React.Fragment>
-	));
+	const excerptsJSX = toShow.map((post, index) => <Excerpt post={post} rootLink="/post" key={index} />);
 
 	const paginationRoot = match.params.category
 		? `/posts/${match.params.category}/`
@@ -72,8 +69,8 @@ function PostsPage({ posts, match, categories, loading }) {
 					<Grid item xs={12} md={9}>
 						<main>
 							{filteredPosts.length > 0 && (categoryId || !match.params.category) ? (
-								<>
-									{excerptsJSX}
+									<ExcerptListContainer>
+									<List disablePadding>{excerptsJSX}</List>
 									<Pagination
 										perPage={PER_PAGE}
 										current={match.params.index ? parseInt(match.params.index) : 1}
@@ -81,7 +78,7 @@ function PostsPage({ posts, match, categories, loading }) {
 										limit={3}
 										root={paginationRoot}
 									/>
-								</>
+									</ExcerptListContainer>
 							) : (
 								<h1>Pas de publications trouvées</h1>
 							)}
