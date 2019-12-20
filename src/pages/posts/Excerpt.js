@@ -36,8 +36,6 @@ function Excerpt({ allCategories, post, rootLink }) {
 	const spacing = 2;
 
 	useEffect(() => {
-		// console.log('***********Excerpt did mount************');
-		// console.log('*****Refs**********', contentRef.current.getBoundingClientRect());
 		setImageH(contentRef.current.getBoundingClientRect().height - spacing * 8 + 'px');
 	});
 
@@ -51,7 +49,7 @@ function Excerpt({ allCategories, post, rootLink }) {
 						</Grid>
 					)}
 					<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>
-						<PostInfos author={author_name} date={date} categories={postCategories} />
+						<PostInfos author={author_name} date={date} categories={postCategories} views={post.views} />
 						<H2 mb={2} mt={2}>
 							{title.rendered}
 						</H2>
