@@ -25,7 +25,7 @@ const ExcerptListContainer = styled.div`
 		padding-top: 32px;
 		padding-bottom: 32px;
 	}
-`
+`;
 
 function PostsPage({ posts, match, categories, loading }) {
 	const PER_PAGE = CONSTANTS.POSTS_PER_PAGE;
@@ -69,7 +69,7 @@ function PostsPage({ posts, match, categories, loading }) {
 					<Grid item xs={12} md={9}>
 						<main>
 							{filteredPosts.length > 0 && (categoryId || !match.params.category) ? (
-									<ExcerptListContainer>
+								<ExcerptListContainer>
 									<List disablePadding>{excerptsJSX}</List>
 									<Pagination
 										perPage={PER_PAGE}
@@ -78,7 +78,7 @@ function PostsPage({ posts, match, categories, loading }) {
 										limit={3}
 										root={paginationRoot}
 									/>
-									</ExcerptListContainer>
+								</ExcerptListContainer>
 							) : (
 								<h1>Pas de publications trouvées</h1>
 							)}

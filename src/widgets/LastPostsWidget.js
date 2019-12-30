@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import Divider from '@material-ui/core/Divider';
@@ -15,6 +14,7 @@ import { CONSTANTS } from 'config';
 
 import WidgetHeader from './WidgetHeader.js';
 import WidgetWrapper from './WidgetWrapper.js';
+import PostsSupplier from './PostsSupplier.js';
 
 const StyledImg = styled.img`
 	display: block;
@@ -70,56 +70,50 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 	);
 };
 
-function LastPostsWidget({ number, allPosts, currentPost, loading, variant }) {
-	const filteredPosts = allPosts.filter(post => post.id !== currentPost.id);
-	let toShow = [];
+function LastPostsWidget({ number, variant }) {
 	let title;
 
 	switch (variant) {
 		case 'mostPopular':
-			toShow = filteredPosts.sort((a, b) => (b.views || 0) - (a.views || 0));
 			title = 'les articles populaires';
 			break;
 		case 'sameCategory':
-			if (currentPost.id) {
-				currentPost.categories.forEach(cat => {
-					toShow.push(...filteredPosts.filter(post => post.categories.indexOf(cat) != -1));
-				});
-			}
 			title = 'dans la même catégory';
 			break;
 		case 'sameAuthor':
-			if (currentPost.id) {
-				toShow = filteredPosts.filter(post => post.author === currentPost.author);
-			}
 			title = 'du même auteur';
 			break;
 		default:
-			toShow = filteredPosts;
 			title = 'les derniers articles';
 	}
 
-	const toShowJSX = toShow.slice(1, number).map((post, index) => (
-		<React.Fragment key={index}>
-			<ListItem button divider>
-				<NavLink to={`/post/${post.slug}`} className="black-link small-font">
-					{post.title.rendered}
-				</NavLink>
-			</ListItem>
-		</React.Fragment>
-	));
-
-	const noRender =
-		loading || ((variant === 'sameCategory' || variant === 'sameAuthor') && !currentPost.id) || toShow.length == 0;
-
-	return noRender ? null : (
-		<WidgetWrapper>
-			<WidgetHeader>{title}</WidgetHeader>
-			<Divider />
-			<FirstPost post={toShow[0]} />
-			<Divider />
-			<List disablePadding>{toShowJSX}</List>
-		</WidgetWrapper>
+	return (
+		<PostsSupplier
+			filter={variant}
+			render={(posts, loading, currentPost) => {
+				const postsWithoutCurrent = posts.filter(post => post.id !== currentPost.id);
+				const noRender =
+					loading ||
+					((variant === 'sameCategory' || variant === 'sameAuthor') && !currentPost.id) ||
+					postsWithoutCurrent.length == 0;
+				const toShowJSX = postsWithoutCurrent.slice(1, number).map((post, index) => (
+					<ListItem button divider key={index}>
+						<NavLink to={`/post/${post.slug}`} className="black-link small-font">
+							{post.title.rendered}
+						</NavLink>
+					</ListItem>
+				));
+				return noRender ? null : (
+					<WidgetWrapper>
+						<WidgetHeader>{title}</WidgetHeader>
+						<Divider />
+						<FirstPost post={postsWithoutCurrent[0]} />
+						<Divider />
+						<List disablePadding>{toShowJSX}</List>
+					</WidgetWrapper>
+				);
+			}}
+		/>
 	);
 }
 
@@ -127,12 +121,4 @@ LastPostsWidget.defaultProps = {
 	number: CONSTANTS.NB_POSTS_WIDGET
 };
 
-const mapStateToProps = state => {
-	return {
-		allPosts: state.posts.posts,
-		loading: state.status.postsLoading,
-		currentPost: state.posts.post
-	};
-};
-
-export default connect(mapStateToProps, null)(LastPostsWidget);
+export default LastPostsWidget;

@@ -1,14 +1,3 @@
-// export const interpose = (array, element) => {
-// 	const result = [...array];
-// 	let count = 1;
-// 	while (count < result.length) {
-// 		element.props.key = 777 + count;
-// 		result.splice(count, 0, element);
-// 		count += 2;
-// 	}
-// 	return result;
-// };
-
 export const months = [
 	'Janvier',
 	'Février',
@@ -43,4 +32,17 @@ export const getSize = theme => {
 	else if (width < parseInt(theme.lg)) return 'md';
 	else if (width < parseInt(theme.xl)) return 'lg';
 	else return 'xl';
+};
+
+export const sortById = arr => {
+	let array = [...arr];
+	const result = [];
+	while (array.length > 0) {
+		const highestId = array.reduce((a, c) => (a.id > c.id ? a : c));
+		result.push(highestId);
+		array = array.filter(item => item.id !== highestId.id);
+	}
+	console.log(result[0]);
+	console.log(result);
+	return result;
 };

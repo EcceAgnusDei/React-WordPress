@@ -3,7 +3,7 @@ import { GET_POSTS, GET_BY_SLUG } from '../../actions/types.js';
 const initialState = {
 	posts: [],
 	post: {}
-}
+};
 
 export default (state = initialState, action) => {
 	switch (action.type) {
@@ -11,14 +11,13 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				posts: action.payload
-			}
+			};
 		case GET_BY_SLUG:
 			return {
 				...state,
-				post: state.posts.find(post => post.slug === action.payload) ||
-				initialState.post
-			}
+				post: state.posts.find(post => post.slug === action.payload) || initialState.post
+			};
 		default:
 			return state;
 	}
-}
+};
