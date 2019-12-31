@@ -7,6 +7,7 @@ const WPParagraphWrapper = styled.div`
 		margin: 0;
 		font-size: ${props => props.size}rem;
 		text-align: justify;
+		text-transform: none;
 	}
 	${props => props.mHeight && `max-height: ${props.mHeight}px;`}
 	overflow: hidden;
