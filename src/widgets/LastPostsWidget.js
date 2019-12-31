@@ -34,8 +34,8 @@ const ExcerptContainer = styled.div`
 	position: relative;
 `;
 
-const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
-	const imageUrl = img ? (img.medium_large ? img.medium_large : img.medium ? img.medium : img.small) : null;
+const FirstPost = ({ post: { title, excerpt, slug }, media }) => {
+	const img = media && (media.media_details.sizes.medium_large || media.media_details.sizes.medium);
 	const wpParagraphRef = useRef(null);
 
 	const [overflow, setOverflow] = useState(false);
@@ -55,7 +55,7 @@ const FirstPost = ({ post: { img, title, excerpt, slug } }) => {
 		<ExcerptContainer>
 			<ListItem button>
 				<NavLink to={`/post/${slug}`} className="black-link">
-					{img && <StyledImg src={img.medium} alt={img.alt_text} />}
+					{media && <StyledImg src={img.source_url} alt={media.alt_text} />}
 					<StyledH2 mt={1}>{title.rendered}</StyledH2>
 					<WPParagraphWrapper
 						mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
@@ -90,12 +90,10 @@ function LastPostsWidget({ number, variant }) {
 	return (
 		<PostsSupplier
 			filter={variant}
-			render={(posts, loading, currentPost) => {
+			render={(posts, currentPost, medias) => {
 				const postsWithoutCurrent = posts.filter(post => post.id !== currentPost.id);
-				const noRender =
-					loading ||
-					((variant === 'sameCategory' || variant === 'sameAuthor') && !currentPost.id) ||
-					postsWithoutCurrent.length == 0;
+				const media = medias.find(media => media.id === postsWithoutCurrent[0].featured_media);
+				const noRender = postsWithoutCurrent.length == 0;
 				const toShowJSX = postsWithoutCurrent.slice(1, number).map((post, index) => (
 					<ListItem button divider key={index}>
 						<NavLink to={`/post/${post.slug}`} className="black-link small-font">
@@ -107,7 +105,7 @@ function LastPostsWidget({ number, variant }) {
 					<WidgetWrapper>
 						<WidgetHeader>{title}</WidgetHeader>
 						<Divider />
-						<FirstPost post={postsWithoutCurrent[0]} />
+						<FirstPost post={postsWithoutCurrent[0]} media={media} />
 						<Divider />
 						<List disablePadding>{toShowJSX}</List>
 					</WidgetWrapper>

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-const PostsSupplier = ({ allPosts, loading, currentPost, render, filter }) => {
+const PostsSupplier = ({ allPosts, loading, currentPost, render, filter, medias }) => {
 	let toShow = [];
 
 	switch (filter) {
@@ -23,14 +23,19 @@ const PostsSupplier = ({ allPosts, loading, currentPost, render, filter }) => {
 			toShow = allPosts;
 	}
 
-	return render(toShow, loading, currentPost);
+	if (loading || (!currentPost.id && (filter === 'sameCategory' || filter === 'sameAuthor'))) {
+		return null;
+	} else {
+		return render(toShow, currentPost, medias);
+	}
 };
 
 const mapStateToProps = state => {
 	return {
 		allPosts: state.posts.posts,
-		loading: state.status.postsLoading,
-		currentPost: state.posts.post
+		loading: state.status.postsLoading || state.status.mediasLoading || state.status.usersLoading,
+		currentPost: state.posts.post,
+		medias: state.posts.medias
 	};
 };
 

@@ -48,7 +48,7 @@ function Excerpt({ allCategories, views, media, post, rootLink }) {
 				<Grid container spacing={spacing} alignItems="flex-start">
 					{img && (
 						<Grid item xs={12} md={5}>
-							<ObjectFitImg src={img} alt={img.alt_text} height={imageH} fillSpace />
+							<ObjectFitImg src={img} alt={media.alt_text} height={imageH} fillSpace />
 						</Grid>
 					)}
 					<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>
