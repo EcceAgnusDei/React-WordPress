@@ -22,10 +22,8 @@ const StyledImg = styled.img`
 	margin: auto;
 `;
 
-function Post({ post, loading, match, getPost, allCategories }) {
-	let postCategories = post.id ? allCategories.filter(item => post.categories.indexOf(item.id) != -1) : [];
+function Post({ post, loading, match, getPost }) {
 	const parsedExcerpt = post.excerpt ? post.excerpt.rendered.replace(/(<([^>]+)>)/gi, '') : '';
-	console.log(parsedExcerpt);
 	const metaDescription =
 		(post.acf && post.acf.meta_description) ||
 		(post.excerpt && post.excerpt.rendered.slice(3, Math.max(150, post.excerpt.rendered.length)));
@@ -60,13 +58,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 						<title>{post.title.rendered}</title>
 						<meta name="description" content={metaDescription} />
 					</Helmet>
-					<PostHeader
-						title={post.title.rendered}
-						author={post.author_name}
-						date={post.date}
-						views={post.views}
-						categories={postCategories}
-					/>
+					<PostHeader post={post} />
 					<Space />
 					<Divider />
 					<Space height="30px" />
@@ -94,9 +86,7 @@ function Post({ post, loading, match, getPost, allCategories }) {
 const mapStateToProps = state => {
 	return {
 		post: state.posts.post,
-		posts: state.posts.posts,
-		loading: state.status.postsLoading,
-		allCategories: state.categories.categories
+		loading: state.status.postsLoading
 	};
 };
 

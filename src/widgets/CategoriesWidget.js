@@ -28,7 +28,7 @@ function CategoriesWidget({ categories }) {
 
 const mapStateToProps = state => {
 	return {
-		categories: state.categories.categories
+		categories: state.posts.categories
 	};
 };
 

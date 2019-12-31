@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import TimeIcon from '@material-ui/icons/AccessTime';
 import PenIcon from '@material-ui/icons/Create';
@@ -14,8 +15,9 @@ const StyledDiv = styled.div`
 	color: ${props => props.theme.grey};
 `;
 
-function PostInfos({ author, date, categories, views }) {
-	const categoriesName = categories.map((cat, index) => (
+function PostInfos({ post, author, allCategories, views }) {
+	let postCategories = allCategories ? allCategories.filter(item => post.categories.indexOf(item.id) != -1) : [];
+	const categoriesName = postCategories.map((cat, index) => (
 		<Span align="middle" key={index}>
 			{' ' + cat.name}
 		</Span>
@@ -41,7 +43,7 @@ function PostInfos({ author, date, categories, views }) {
 			<TimeIcon fontSize="small" />
 			<Span italic align="middle">
 				{' '}
-				<Date date={date} fontSize="small" />
+				<Date date={post.date} fontSize="small" />
 			</Span>
 			<Span align="middle"> - </Span>
 			<TagIcon fontSize="small" />
@@ -55,4 +57,12 @@ function PostInfos({ author, date, categories, views }) {
 	);
 }
 
-export default PostInfos;
+const mapStateToProps = (state, { post }) => {
+	return {
+		allCategories: state.posts.categories,
+		author: state.posts.users && state.posts.users.find(user => user.id === post.author).name,
+		views: state.posts.views && state.posts.views[post.id]
+	};
+};
+
+export default connect(mapStateToProps, null)(PostInfos);

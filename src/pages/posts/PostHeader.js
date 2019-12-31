@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { H1 } from 'elements/H';
 import PostInfos from 'elements/PostInfos';
 
-function PostHeader({ title, author, date, categories, views }) {
+function PostHeader({ post }) {
 	return (
 		<header>
-			<H1 m={0}>{title}</H1>
-			<PostInfos author={author} date={date} categories={categories} views={views} />
+			<H1 m={0}>{post.title.rendered}</H1>
+			<PostInfos post={post} />
 		</header>
 	);
 }

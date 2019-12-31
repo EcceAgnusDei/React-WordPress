@@ -1,6 +1,12 @@
-export const GET_POSTS = 'getPosts';
-export const GET_BY_SLUG = 'getBySlug';
+export const FETCH_POSTS = 'getPosts';
 export const FETCH_CATEGORIES = 'fetchCategories';
+export const FETCH_VIEWS = 'fetchViews';
+export const FETCH_USERS = 'fetchUsers';
+export const FETCH_MEDIAS = 'fetchMedias';
+export const GET_BY_SLUG = 'getBySlug';
 export const POSTS_LOADING = 'postsLoading';
 export const CATEGORIES_LOADING = 'categoriesLoading';
+export const VIEWS_LOADING = 'viewsLoading';
+export const MEDIAS_LOADING = 'mediasLoading';
+export const USERS_LOADING = 'usersLoading';
 export const SET_SCREEN_SIZE = 'setScreenSize';

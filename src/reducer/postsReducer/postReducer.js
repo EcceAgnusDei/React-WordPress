@@ -1,13 +1,24 @@
-import { GET_POSTS, GET_BY_SLUG } from '../../actions/types.js';
+import {
+	FETCH_POSTS,
+	GET_BY_SLUG,
+	FETCH_CATEGORIES,
+	FETCH_VIEWS,
+	FETCH_USERS,
+	FETCH_MEDIAS
+} from '../../actions/types.js';
 
 const initialState = {
 	posts: [],
+	categories: [],
+	views: {},
+	medias: [],
+	users: [],
 	post: {}
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GET_POSTS:
+		case FETCH_POSTS:
 			return {
 				...state,
 				posts: action.payload
@@ -16,6 +27,26 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				post: state.posts.find(post => post.slug === action.payload) || initialState.post
+			};
+		case FETCH_CATEGORIES:
+			return {
+				...state,
+				categories: action.payload
+			};
+		case FETCH_USERS:
+			return {
+				...state,
+				users: action.payload
+			};
+		case FETCH_VIEWS:
+			return {
+				...state,
+				views: action.payload
+			};
+		case FETCH_MEDIAS:
+			return {
+				...state,
+				medias: action.payload
 			};
 		default:
 			return state;

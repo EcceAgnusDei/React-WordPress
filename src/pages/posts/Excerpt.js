@@ -28,12 +28,15 @@ const StyledImage = styled(Image)`
 	}
 `;
 
-function Excerpt({ allCategories, post, rootLink }) {
-	const { title, img, excerpt, slug, categories, author_name, date } = post;
+function Excerpt({ allCategories, views, media, post, rootLink }) {
+	const { title, excerpt, slug, categories, date } = post;
 	const contentRef = useRef(null);
 	const [imageH, setImageH] = useState('auto');
-	const postCategories = allCategories.filter(item => categories.indexOf(item.id) != -1);
 	const spacing = 2;
+	const img =
+		media &&
+		((media.media_details.sizes.large && media.media_details.sizes.large.source_url) ||
+			media.media_details.sizes.full.source_url);
 
 	useEffect(() => {
 		setImageH(contentRef.current.getBoundingClientRect().height - spacing * 8 + 'px');
@@ -45,11 +48,11 @@ function Excerpt({ allCategories, post, rootLink }) {
 				<Grid container spacing={spacing} alignItems="flex-start">
 					{img && (
 						<Grid item xs={12} md={5}>
-							<ObjectFitImg src={img.large || img.full} alt={img.alt_text} height={imageH} fillSpace />
+							<ObjectFitImg src={img} alt={img.alt_text} height={imageH} fillSpace />
 						</Grid>
 					)}
 					<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>
-						<PostInfos author={author_name} date={date} categories={postCategories} views={post.views} />
+						<PostInfos post={post} />
 						<H2 mb={2} mt={2}>
 							{title.rendered}
 						</H2>
@@ -61,9 +64,11 @@ function Excerpt({ allCategories, post, rootLink }) {
 	);
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { post }) => {
 	return {
-		allCategories: state.categories.categories
+		allCategories: state.posts.categories,
+		views: state.posts.views[post.id],
+		media: state.posts.medias.find(media => media.id === post.featured_media)
 	};
 };
 

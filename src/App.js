@@ -8,8 +8,7 @@ import Container from '@material-ui/core/Container';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
-import { fetchPosts } from './actions/postActions.js';
-import { fetchCategories } from './actions/categoryActions.js';
+import { fetchPosts, fetchCategories, fetchUsers, fetchViews, fetchMedias } from './actions/postActions.js';
 import { setScreenSize } from './actions/statusActions.js';
 
 import { getSize } from 'utils/utils';
@@ -44,10 +43,21 @@ const muiTheme = createMuiTheme({
   }
 });
 
-function App({ fetchAllCategories, fetchAllPosts, setScreenSize, screenSize }) {
+function App({
+  fetchAllCategories,
+  fetchAllPosts,
+  fetchAllUsers,
+  fetchAllViews,
+  fetchAllMedias,
+  setScreenSize,
+  screenSize
+}) {
   useEffect(() => {
     fetchAllPosts();
     fetchAllCategories();
+    fetchAllViews();
+    fetchAllUsers();
+    fetchAllMedias();
   }, []);
 
   useEffect(() => {
@@ -94,6 +104,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchAllPosts: () => dispatch(fetchPosts()),
     fetchAllCategories: () => dispatch(fetchCategories()),
+    fetchAllMedias: () => dispatch(fetchMedias()),
+    fetchAllUsers: () => dispatch(fetchUsers()),
+    fetchAllViews: () => dispatch(fetchViews()),
     setScreenSize: size => dispatch(setScreenSize(size))
   };
 };

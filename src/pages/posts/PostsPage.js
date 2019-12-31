@@ -98,7 +98,7 @@ function PostsPage({ posts, match, categories, loading }) {
 const mapStateToProps = state => {
 	return {
 		posts: state.posts.posts,
-		categories: state.categories.categories,
+		categories: state.posts.categories,
 		loading: state.status.postsLoading
 	};
 };
