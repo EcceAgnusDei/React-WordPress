@@ -60,8 +60,8 @@ function PostInfos({ post, author, allCategories, views }) {
 const mapStateToProps = (state, { post }) => {
 	return {
 		allCategories: state.posts.categories,
-		author: state.posts.users && state.posts.users.find(user => user.id === post.author).name,
-		views: state.posts.views && state.posts.views[post.id]
+		author: state.posts.users.length > 0 && state.posts.users.find(user => user.id === post.author).name,
+		views: state.posts.views[post.id]
 	};
 };
 
