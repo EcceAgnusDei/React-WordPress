@@ -8,15 +8,18 @@ import TagIcon from '@material-ui/icons/LocalOffer';
 import EyeIcon from '@material-ui/icons/Visibility';
 
 import Span from 'elements/Span';
+import Div from 'elements/Div';
 import Date from 'elements/DatePresentational';
+import { intersperse } from 'utils/utils';
 
-const StyledDiv = styled.div`
+const StyledDiv = styled(Div)`
 	font-size: 0.8rem;
 	color: ${props => props.theme.grey};
 `;
 
-function PostInfos({ post, author, allCategories, views }) {
+function PostInfos({ post, author, allCategories, views, noAuthor, noCategory, noDate, noViews, ...otherProps }) {
 	let postCategories = allCategories ? allCategories.filter(item => post.categories.indexOf(item.id) != -1) : [];
+	const infosJSX = [];
 	const categoriesName = postCategories.map((cat, index) => (
 		<Span align="middle" key={index}>
 			{' ' + cat.name}
@@ -35,24 +38,40 @@ function PostInfos({ post, author, allCategories, views }) {
 		count += 2;
 	}
 
+	if (!noAuthor)
+		infosJSX.push(
+			<React.Fragment key={1}>
+				<PenIcon fontSize="small" />
+				<Span align="middle"> {author}</Span>
+			</React.Fragment>
+		);
+	if (!noDate)
+		infosJSX.push(
+			<React.Fragment key={2}>
+				<TimeIcon fontSize="small" />
+				<Span italic align="middle">
+					{' '}
+					<Date date={post.date} fontSize="small" />
+				</Span>
+			</React.Fragment>
+		);
+	if (!noCategory)
+		infosJSX.push(
+			<React.Fragment key={3}>
+				<TagIcon fontSize="small" />
+				{categoriesName}
+			</React.Fragment>
+		);
+	if (!noViews && views)
+		infosJSX.push(
+			<React.Fragment key={4}>
+				<EyeIcon fontSize="small" /> {views}
+			</React.Fragment>
+		);
+
 	return (
-		<StyledDiv>
-			<PenIcon fontSize="small" />
-			<Span align="middle"> {author}</Span>
-			<Span align="middle"> - </Span>
-			<TimeIcon fontSize="small" />
-			<Span italic align="middle">
-				{' '}
-				<Date date={post.date} fontSize="small" />
-			</Span>
-			<Span align="middle"> - </Span>
-			<TagIcon fontSize="small" />
-			{categoriesName}
-			{views && (
-				<>
-					<Span align="middle"> - </Span> <EyeIcon fontSize="small" /> {views}
-				</>
-			)}
+		<StyledDiv {...otherProps}>
+			<div>{intersperse(infosJSX, ' - ')}</div>
 		</StyledDiv>
 	);
 }

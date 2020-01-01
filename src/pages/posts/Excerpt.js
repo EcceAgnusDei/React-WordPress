@@ -11,7 +11,7 @@ import { H2 } from 'elements/H';
 import P from 'elements/P';
 import WPContentContainer from 'elements/WPContentContainer';
 import PostInfos from 'elements/PostInfos';
-import WPParagraphWrapper from 'elements/WPParagraphWrapper';
+import WPParagraph from 'elements/WPParagraph';
 import Image from 'elements/Image';
 import Space from 'elements/Space';
 import ObjectFitImg from 'elements/ObjectFitImg';
@@ -56,7 +56,7 @@ function Excerpt({ allCategories, views, media, post, rootLink }) {
 						<H2 mb={2} mt={2}>
 							{title.rendered}
 						</H2>
-						<WPParagraphWrapper mb={0} dangerouslySetInnerHTML={{ __html: excerpt.rendered }} />
+						<WPParagraph mb={0} content={excerpt.rendered} />
 					</Grid>
 				</Grid>
 			</ListItem>

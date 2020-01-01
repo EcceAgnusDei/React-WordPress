@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 import { CONSTANTS } from 'config';
 import Mask from 'elements/Mask';
-import WPParagraphWrapper from 'elements/WPParagraphWrapper';
+import WPParagraph from 'elements/WPParagraph';
 import { H2 } from 'elements/H';
 
 const ExcerptContainer = styled.div`
@@ -31,20 +31,6 @@ const StyledImg = styled.img`
 
 const WidgetPost = ({ post: { title, excerpt, slug }, media, centredTitle }) => {
 	const img = media && (media.media_details.sizes.medium_large || media.media_details.sizes.medium);
-	const wpParagraphRef = useRef(null);
-
-	const [overflow, setOverflow] = useState(false);
-
-	useEffect(() => {
-		if (
-			wpParagraphRef.current.children.item(0).getBoundingClientRect().height >
-			CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT
-		) {
-			setOverflow(true);
-		} else {
-			setOverflow(false);
-		}
-	});
 
 	return (
 		<ExcerptContainer>
@@ -54,13 +40,11 @@ const WidgetPost = ({ post: { title, excerpt, slug }, media, centredTitle }) => 
 					<StyledH2 mt={1} centred={centredTitle}>
 						{title.rendered}
 					</StyledH2>
-					<WPParagraphWrapper
-						mHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
-						dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
-						ref={wpParagraphRef}
+					<WPParagraph
+						maxHeight={CONSTANTS.LAST_POST_EXCERPT_MAX_HEIGHT}
+						content={excerpt.rendered}
 						size="0.8"
 					/>
-					{overflow && <Mask />}
 				</NavLink>
 			</ListItem>
 		</ExcerptContainer>

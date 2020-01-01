@@ -24,3 +24,4 @@ yarn-error.log*
 
 Community.js
 todo.txt
+/src/widgets/OverflowSupplier.js
