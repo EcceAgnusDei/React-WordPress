@@ -11,7 +11,7 @@ function Home() {
 				<meta name="description" content="Welcome Home" />
 			</Helmet>
 			<h1>Welcome Home</h1>
-			<LastPosts number={3} />
+			<LastPosts number={4} />
 		</React.Fragment>
 	);
 }

@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Divider from '@material-ui/core/Divider';
@@ -20,7 +19,7 @@ function LastPostsWidget({ number, variant }) {
 			render={(posts, currentPost, medias, title) => {
 				const postsWithoutCurrent = posts.filter(post => post.id !== currentPost.id);
 				const media = medias.find(media => media.id === postsWithoutCurrent[0].featured_media);
-				const noRender = postsWithoutCurrent.length == 0;
+				const noRender = postsWithoutCurrent.length === 0;
 				const toShowJSX = postsWithoutCurrent.slice(1, number).map((post, index) => (
 					<ListItem button divider key={index}>
 						<NavLink to={`/post/${post.slug}`} className="black-link small-font">

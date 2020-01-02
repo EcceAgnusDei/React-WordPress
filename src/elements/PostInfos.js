@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import TimeIcon from '@material-ui/icons/AccessTime';
@@ -12,13 +11,8 @@ import Div from 'elements/Div';
 import Date from 'elements/DatePresentational';
 import { intersperse } from 'utils/utils';
 
-const StyledDiv = styled(Div)`
-	font-size: 0.8rem;
-	color: ${props => props.theme.grey};
-`;
-
 function PostInfos({ post, author, allCategories, views, noAuthor, noCategory, noDate, noViews, ...otherProps }) {
-	let postCategories = allCategories ? allCategories.filter(item => post.categories.indexOf(item.id) != -1) : [];
+	let postCategories = allCategories ? allCategories.filter(item => post.categories.indexOf(item.id) !== -1) : [];
 	const infosJSX = [];
 	const categoriesName = postCategories.map((cat, index) => (
 		<Span align="middle" key={index}>
@@ -70,11 +64,17 @@ function PostInfos({ post, author, allCategories, views, noAuthor, noCategory, n
 		);
 
 	return (
-		<StyledDiv {...otherProps}>
+		<Div {...otherProps}>
 			<div>{intersperse(infosJSX, ' - ')}</div>
-		</StyledDiv>
+		</Div>
 	);
 }
+
+PostInfos.defaultProps = {
+	fontSize: '0.8rem',
+	color: 'grey',
+	m: 1
+};
 
 const mapStateToProps = (state, { post }) => {
 	return {

@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import Hidden from '@material-ui/core/Hidden';
 
 import Categories from 'widgets/CategoriesWidget';
 import LastPosts from 'widgets/LastPostsWidget';
 import ArchivesWidget from 'widgets/ArchivesWidget';
-import Space from 'elements/Space';
 
 import Drawer from 'elements/Drawer';
-import theme from 'theme';
-import AppWrapper from 'AppWrapper';
 
 import SideBarButton from './SideBarButton';
 

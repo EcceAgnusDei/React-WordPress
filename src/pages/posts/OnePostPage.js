@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import ProgressiveImage from 'react-progressive-image';
 
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,22 +11,18 @@ import Sidebar from 'layout/Sidebar';
 import { getBySlug } from 'actions/postActions.js';
 import NotFound from 'pages/NotFound.js';
 import Space from 'elements/Space';
+import Image from 'elements/Image';
 import WPContentContainer from 'elements/WPContentContainer';
 import theme from 'theme';
 
 import PostHeader from './PostHeader';
 
-const StyledImg = styled.img`
-	max-width: 100%;
-	display: table;
-	margin: auto;
-`;
-
-function Post({ post, loading, match, getPost }) {
-	const parsedExcerpt = post.excerpt ? post.excerpt.rendered.replace(/(<([^>]+)>)/gi, '') : '';
+function Post({ post, loading, match, getPost, media }) {
+	//const parsedExcerpt = post.excerpt ? post.excerpt.rendered.replace(/(<([^>]+)>)/gi, '') : '';
 	const metaDescription =
-		(post.acf && post.acf.meta_description) ||
-		(post.excerpt && post.excerpt.rendered.slice(3, Math.max(150, post.excerpt.rendered.length)));
+		(post && post.acf && post.acf.meta_description) ||
+		(post && post.excerpt && post.excerpt.rendered.slice(3, Math.max(150, post.excerpt.rendered.length)));
+	const img = media && (media.media_details.sizes.large || media.media_details.sizes.large.full);
 
 	useEffect(() => {
 		if (!loading) {
@@ -35,7 +31,7 @@ function Post({ post, loading, match, getPost }) {
 	}, [loading, match]);
 
 	useEffect(() => {
-		if (post.id) {
+		if (post) {
 			fetch('/react-api/updatePostStats.php', {
 				method: 'POST',
 				header: {
@@ -52,7 +48,7 @@ function Post({ post, loading, match, getPost }) {
 		<>
 			{loading ? (
 				<CircularProgress size={theme.circularProgressSize} />
-			) : post.id ? (
+			) : post ? (
 				<>
 					<Helmet>
 						<title>{post.title.rendered}</title>
@@ -60,12 +56,21 @@ function Post({ post, loading, match, getPost }) {
 					</Helmet>
 					<PostHeader post={post} />
 					<Space />
+					{img && (
+						//<Image src={img.source_url} fillSpace />
+						<ProgressiveImage
+							src={img.source_url}
+							placeholder={media.media_details.sizes.medium.source_url}
+						>
+							{src => <Image src={src} fillSpace />}
+						</ProgressiveImage>
+					)}
+					<Space />
 					<Divider />
 					<Space height="30px" />
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={8} lg={9}>
 							<main>
-								{post.img && <StyledImg src={post.img.large || post.img.full} />}
 								<WPContentContainer
 									dangerouslySetInnerHTML={{ __html: post.content.rendered }}
 								></WPContentContainer>
@@ -83,9 +88,10 @@ function Post({ post, loading, match, getPost }) {
 	);
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { match }) => {
 	return {
-		post: state.posts.post,
+		post: state.posts.posts.find(post => post.slug === match.params.slug),
+		media: state.posts.medias.find(media => media.id === state.posts.post.featured_media),
 		loading: state.status.postsLoading
 	};
 };

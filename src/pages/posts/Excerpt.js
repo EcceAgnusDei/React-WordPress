@@ -6,30 +6,22 @@ import { NavLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 
-import Link from 'elements/Link';
 import { H2 } from 'elements/H';
-import P from 'elements/P';
-import WPContentContainer from 'elements/WPContentContainer';
 import PostInfos from 'elements/PostInfos';
 import WPParagraph from 'elements/WPParagraph';
 import Image from 'elements/Image';
-import Space from 'elements/Space';
-import ObjectFitImg from 'elements/ObjectFitImg';
-
-import PostHeader from './PostHeader';
+import { CONSTANTS } from 'config';
 
 const StyledImage = styled(Image)`
-	display: ${props => (props.fillSpace ? 'block' : 'table')}
-	${props => props.fillSpace && 'width: 100%;'}
-	height: ${props => props.height};
 	@media (max-width: ${props => props.theme.md}) {
 		height: auto;
 		max-height: 480px;
 	}
 `;
 
+//Utiliser screenSize pour redéfinir la hauteur de l'image sur petit écran, dans le cas de l'utilisation de ObjectFitImg
 function Excerpt({ allCategories, views, media, post, rootLink }) {
-	const { title, excerpt, slug, categories, date } = post;
+	const { title, excerpt, slug } = post;
 	const contentRef = useRef(null);
 	const [imageH, setImageH] = useState('auto');
 	const spacing = 2;
@@ -41,14 +33,18 @@ function Excerpt({ allCategories, views, media, post, rootLink }) {
 	useEffect(() => {
 		setImageH(contentRef.current.getBoundingClientRect().height - spacing * 8 + 'px');
 	});
-
 	return (
 		<NavLink to={`${rootLink}/${slug}`}>
 			<ListItem button divider>
 				<Grid container spacing={spacing} alignItems="flex-start">
 					{img && (
 						<Grid item xs={12} md={5}>
-							<ObjectFitImg src={img} alt={media.alt_text} height={imageH} fillSpace />
+							<StyledImage
+								src={img}
+								alt={media.alt_text}
+								height={imageH}
+								fillSpace={CONSTANTS.EXCERPT_IMAGE_FULL_WIDTH}
+							/>
 						</Grid>
 					)}
 					<Grid item xs={12} md={img ? 7 : 12} ref={contentRef}>

@@ -22,9 +22,7 @@ function WPParagraph({ maxHeight, content, ...otherProps }) {
 	const [overflow, setOverflow] = useState(false);
 	const contentRef = useRef(null);
 	useEffect(() => {
-		console.debug(contentRef.current.getBoundingClientRect().height);
 		if (maxHeight && contentRef.current.getBoundingClientRect().height > maxHeight - 10) {
-			console.debug('overflow');
 			setOverflow(true);
 		} else {
 			setOverflow(false);

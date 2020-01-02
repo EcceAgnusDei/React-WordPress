@@ -6,6 +6,7 @@ export const H1 = styled.h1`
 	margin-top: ${props => (props.mt ? props.theme.marginScale * props.mt + 'px' : 'initial')};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;
 
 export const H2 = styled.h2`
@@ -14,6 +15,7 @@ export const H2 = styled.h2`
 	margin-top: ${props => (props.mt ? props.theme.marginScale * props.mt + 'px' : 'initial')};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;
 
 export const H3 = styled.h3`
@@ -22,6 +24,7 @@ export const H3 = styled.h3`
 	margin-top: ${props => (props.mt ? props.theme.marginScale * props.mt + 'px' : 'initial')};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;
 
 export const H4 = styled.h4`
@@ -29,6 +32,7 @@ export const H4 = styled.h4`
 	margin-bottom: ${props => props.theme.marginScale * props.mb + 'px'};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;
 
 export const H5 = styled.h5`
@@ -37,6 +41,7 @@ export const H5 = styled.h5`
 	margin-top: ${props => (props.mt ? props.theme.marginScale * props.mt + 'px' : 'initial')};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;
 
 export const H6 = styled.h6`
@@ -45,4 +50,5 @@ export const H6 = styled.h6`
 	margin-top: ${props => (props.mt ? props.theme.marginScale * props.mt + 'px' : 'initial')};
 	font-family: ${props => props.theme.font.serif}, serif;
 	${props => props.center && 'text-align: center'}
+	${props => props.shadow && 'text-shadow: 1px 1px 0px black;'}
 `;

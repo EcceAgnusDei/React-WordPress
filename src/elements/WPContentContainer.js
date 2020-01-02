@@ -115,7 +115,7 @@ const WPContentContainer = styled.div`
 		content: "”";
 		font-size: 2rem;
 		align-self: flex-end;
-    	line-height: 0.3;
+    	line-height: 0;
 	}
 
 	/* Video et audio*/

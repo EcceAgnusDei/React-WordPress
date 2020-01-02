@@ -27,10 +27,9 @@ function ArchivesWidget({ posts, expanded }) {
 		const postsDate = posts
 			.filter(post => parseDate(post.date).year == year)
 			.map(post => parseDate(post.date).month);
-		const parsedMonths = months.filter((month, index) => postsDate.indexOf(nicerMonth(index + 1)) != -1);
+		const parsedMonths = months.filter((month, index) => postsDate.indexOf(nicerMonth(index + 1)) !== -1);
 
 		const monthJSX = parsedMonths.map((month, index) => {
-			const correctedIndex = index + 1;
 			return (
 				<NavLink
 					to={`/posts/archives/${year}/${nicerMonth(months.indexOf(month) + 1)}`}

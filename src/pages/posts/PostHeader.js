@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { H1 } from 'elements/H';
 import PostInfos from 'elements/PostInfos';

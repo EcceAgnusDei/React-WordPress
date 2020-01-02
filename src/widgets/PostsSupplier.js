@@ -12,7 +12,7 @@ const PostsSupplier = ({ allPosts, loading, currentPost, render, filter, medias 
 		case 'sameCategory':
 			if (currentPost.id) {
 				currentPost.categories.forEach(cat => {
-					toShow.push(...allPosts.filter(post => post.categories.indexOf(cat) != -1));
+					toShow.push(...allPosts.filter(post => post.categories.indexOf(cat) !== -1));
 				});
 			}
 			title = 'dans la même catégory';

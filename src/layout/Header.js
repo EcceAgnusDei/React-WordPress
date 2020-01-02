@@ -8,8 +8,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 
 import Drawer from 'elements/Drawer';
-import Space from 'elements/Space';
-import AppWrapper from 'AppWrapper';
 
 import Menu from './Menu';
 import Logo from './Logo';
@@ -26,7 +24,6 @@ const StyledHeader = styled.header`
 `;
 
 function Header({ brand, children }) {
-	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [isOpen, toggleDrawer] = useState(false);
 
 	return (

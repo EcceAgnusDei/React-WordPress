@@ -4,21 +4,15 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 
 import Sidebar from 'layout/Sidebar';
-import Space from 'elements/Space';
 import theme from 'theme';
 import { CONSTANTS } from 'config';
 
 import Pagination from './Pagination';
 import Excerpt from './Excerpt.js';
-
-const StyledDiv = styled.div`
-	display: flex;
-`;
 
 const ExcerptListContainer = styled.div`
 	.MuiListItem-root {

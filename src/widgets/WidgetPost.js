@@ -1,21 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import ListItem from '@material-ui/core/ListItem';
 
 import { CONSTANTS } from 'config';
-import Mask from 'elements/Mask';
 import WPParagraph from 'elements/WPParagraph';
 import { H2 } from 'elements/H';
 
 const ExcerptContainer = styled.div`
 	position: relative;
-`;
-
-const StyledHeader = styled.div`
-	text-transform: uppercase;
-	margin-bottom: 0;
 `;
 
 const StyledH2 = styled(H2)`

@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { makeStyles } from '@material-ui/core/styles';
 
 import WPParagraph from 'elements/WPParagraph';
 import { H2 } from 'elements/H';
@@ -14,9 +12,7 @@ import Div from 'elements/Div';
 import { CONSTANTS } from 'config';
 
 import PostsSupplier from './PostsSupplier.js';
-import WidgetPost from './WidgetPost.js';
 import WidgetHeader from './WidgetHeader.js';
-import OverflowSupplier from './OverflowSupplier.js';
 
 const StyledDiv = styled.div`
 	background: url(${props => props.bg}) center no-repeat;
@@ -71,8 +67,10 @@ function LastPostsExtendedWidget({ number, variant }) {
 									<StyledDiv bg={img && img.source_url}>
 										<Overlay>
 											<CardHeader p={1}>
-												<H2 center>{post.title.rendered}</H2>
-												<PostInfos post={post} noAuthor noViews centred />
+												<H2 center shadow>
+													{post.title.rendered}
+												</H2>
+												<PostInfos post={post} noAuthor noViews centred color="black" />
 											</CardHeader>
 											<CardParagraph>
 												<WPParagraph
@@ -93,7 +91,7 @@ function LastPostsExtendedWidget({ number, variant }) {
 				return (
 					<>
 						<WidgetHeader>{title}</WidgetHeader>
-						<Grid container spacing={3}>
+						<Grid container spacing={3} justify="center">
 							{toShowJSX}
 						</Grid>
 					</>
